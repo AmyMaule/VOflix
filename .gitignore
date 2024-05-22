@@ -1,0 +1,17 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Build directories
+node_modules
+dist
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+*.ntvs*
+
+# Environment variables
+.env
