@@ -1,0 +1,47 @@
+.hero-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  background-image: url("./hero-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: -4rem;
+  padding: 0 4rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      rgba(0, 0, 0, 0.9) 0%, 
+      rgba(0, 0, 0, 0.9) 25%,
+      rgba(0, 0, 0, 0.8) 35%, 
+      rgba(0, 0, 0, 0.6) 60%, 
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+}
+
+.hero-text-container {
+  font-family: "BebasNeue", sans-serif;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 50;
+}
+
+.hero-title {
+  font-size: 4rem;
+}
+
+.hero-subtitle {
+  font-size: 1.75rem;
+}
