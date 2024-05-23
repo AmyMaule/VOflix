@@ -12,6 +12,7 @@ dist
 .vscode/*
 !.vscode/extensions.json
 *.ntvs*
+notes.txt
 
 # Environment variables
 .env
