@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
 @font-face {
   font-family: "BebasNeue";
   src: url("../fonts/BebasNeue-Regular.otf") format("opentype");
@@ -5,7 +9,11 @@
 
 $color-primary: #D8373E;
 
-$color-dark: #080808;
-$color-mid: #1C1C1F;
-$color-light: #3A3A3D;
-$color-lightest: #505050;
+$color-text: #eeeeee;
+$color-text-secondary: #ded7d7;
+
+$color-grey-1: #262629;
+$color-grey-2: #0b0b14;
+$color-grey-3: #3A3A3D;
+$color-grey-4: #505050;
+$color-grey-5: #afa7a7;

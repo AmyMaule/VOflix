@@ -1,5 +1,5 @@
 import Hero from "./Hero";
-import Movies from "./FilmInfo";
+import Films from "./Films";
 import Navbar from "./Navbar";
 
 const App = () => {
@@ -7,7 +7,7 @@ const App = () => {
     <div className="app-container">
       <Navbar />
       <Hero />
-      <Movies />
+      <Films />
     </div>
   )
 }

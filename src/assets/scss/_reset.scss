@@ -1,5 +1,5 @@
 :root {
-  background-color: $color-mid;
+  background-color: $color-grey-2;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -12,6 +12,6 @@
 }
 
 body {
-  font-family: "BebasNeue", sans-serif;
-  color: rgb(237, 237, 237);
+  font-family: "Open Sans", sans-serif;
+  color: $color-text;
 }
