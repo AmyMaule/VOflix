@@ -37,16 +37,17 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
   return (
     <div className="showing-by-cinema-container" ref={showingRef}>
       <div className="showing-by-cinema-poster-container">
-        <div className="showing-by-cinema-trailer-container">
-          <a 
-            className="showing-by-cinema-trailer-link"
-            href={`https://www.youtube.com/results?search_query=${trailerURL}`}
-            rel="noreferrer"
-            target="_blank"
-          >
+        <a
+          className="showing-by-cinema-trailer-container"
+          href={`https://www.youtube.com/results?search_query=${trailerURL}`}
+          rel="noreferrer"
+          target="_blank"
+        >
+          <i className="fa-regular fa-circle-play showing-by-cinema-trailer-play-btn" />
+          <div className="showing-by-cinema-trailer-link">
               Watch trailer
-          </a>
-        </div>
+          </div>
+        </a>
         <img src={showing.poster_hi_res} className="showing-by-cinema-poster" />
       </div>
       <div className="showing-by-cinema-text-container">
@@ -54,15 +55,17 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
         <div className="showing-by-cinema-genres">{showing.genres}</div>
         <div className="showing-by-cinema-runtime-container">
           <div>2023</div>
-          <a
-            className="showing-by-cinema-rating-container"
-            href={showing.imdb_url}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <img src="imdb-logo.png" className="imdb-logo" />
-            {showing.rating.toFixed(1)}
-          </a>
+          {showing.rating &&
+            <a
+              className="showing-by-cinema-rating-container"
+              href={showing.imdb_url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img src="imdb-logo.png" className="imdb-logo" />
+              {showing.rating.toFixed(1)}
+            </a>
+          }
           <div>{showing.runtime} minutes</div>
         </div>
         <p className="showing-by-cinema-description">{showing.synopsis}</p>
