@@ -9,9 +9,8 @@ type ShowingsByCinemaProps = {
 }
 
 type ShowingsByCinemaType = {
-  [cinemaName: string]: FilmType[];
+  [cinema_name: string]: FilmType[];
 };
-
 
 const ShowingsByCinema = ({ showings }: ShowingsByCinemaProps) => {
   const [showingsByCinema, setShowingsByCinema] = useState<ShowingsByCinemaType>({});
@@ -20,10 +19,10 @@ const ShowingsByCinema = ({ showings }: ShowingsByCinemaProps) => {
     if (!Object.keys(showingsByCinema).length) {
       const showingsByCinemaLocal: ShowingsByCinemaType = {};
       showings.forEach(showing => {
-        if (showingsByCinemaLocal[showing.name]) {
-          showingsByCinemaLocal[showing.name].push(showing);
+        if (showingsByCinemaLocal[showing.cinema_name]) {
+          showingsByCinemaLocal[showing.cinema_name].push(showing);
         } else {
-          showingsByCinemaLocal[showing.name] = [showing];
+          showingsByCinemaLocal[showing.cinema_name] = [showing];
         }
       });
       setShowingsByCinema(showingsByCinemaLocal);
@@ -41,7 +40,7 @@ const ShowingsByCinema = ({ showings }: ShowingsByCinemaProps) => {
           <div className="showings-by-cinema-container" key={cinema}>
             <div>
               <h4 className="showings-by-cinema-title">{cinema}</h4>
-              <h6 className="showings-by-cinema-subtitle">{showingsByCinema[cinema][0].town}</h6>
+              <h6 className="showings-by-cinema-subtitle">{showingsByCinema[cinema][0].cinema_town}</h6>
             </div>
             {showingsByCinema[cinema].map(showing => {
               return <ShowingByCinema showing={showing} key={showing.original_title} />

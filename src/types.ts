@@ -14,6 +14,7 @@ export type FilmType = {
   poster_hi_res: string,
   poster_lo_res: string,
   tagline: string,
-  name: string,
-  town: string
+  cinema_address: string,
+  cinema_name: string,
+  cinema_town: string
 }
