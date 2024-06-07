@@ -43,6 +43,6 @@ $zz-height: 16px;
 }
 
 .animate {
-	animation: slide-up 500ms ease;
-	-webkit-animation: slide-up 500ms ease;
+	animation: slide-up 500ms ease forwards;
+	-webkit-animation: slide-up 500ms ease forwards;
 }
