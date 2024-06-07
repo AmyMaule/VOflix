@@ -36,13 +36,26 @@
   top: 0;
   left: 0;
   z-index: 50;
+
+  .zigzag {
+    opacity: 0;
+    animation: appear 400ms ease 900ms forwards;
+    -webkit-animation: appear 400ms ease 900ms forwards;
+  }
 }
 
 .hero-title {
   position: relative;
   font-size: 4rem;
+  opacity: 0;
+  animation: slide-up-far 600ms ease forwards;
+  -webkit-animation: slide-up-far 600ms ease forwards;
 }
 
 .hero-subtitle {
+  position: relative;
   font-size: 1.75rem;
+  opacity: 0;
+  animation: slide-up-far 500ms ease 400ms forwards;
+	-webkit-animation: slide-up-far 500ms ease 400ms forwards;
 }

@@ -57,20 +57,10 @@
       transform: scale(1.05);
       transition: 300ms all ease;
       -webkit-transition: 300ms all ease;
-
-      &::after {
-        background-color: rgba($color-grey-1, 0.55);
-      }
     }
 
     .showing-by-cinema-trailer-link {
       left: 0;
-    }
-
-    .showing-by-cinema-trailer-play-btn {
-      top: 50%;
-      transition: top 400ms cubic-bezier(0.42, 0, 0.58, 1), color 250ms ease;
-      -webkit-transition: top 400ms cubic-bezier(0.42, 0, 0.58, 1), color 250ms ease;
     }
   }
 }
@@ -95,18 +85,21 @@
     -webkit-transition: 300ms all ease;
   }
 
-  
   &:hover {
+    &::after {
+      background-color: rgba($color-grey-1, 0.65);
+    }
+
     .showing-by-cinema-trailer-link {
-      background-color: $color-secondary;
+      background-color: $color-primary;
       transition: 250ms all ease;
       -webkit-transition: 250ms all ease;
     }
 
     .showing-by-cinema-trailer-play-btn {
-      color: $color-secondary;
-      transition: top 400ms cubic-bezier(0.42, 0, 0.58, 1), color 250ms ease;
-      -webkit-transition: top 400ms cubic-bezier(0.42, 0, 0.58, 1), color 250ms ease;
+      top: 50%;
+      transition: top 300ms cubic-bezier(0.42, 0, 0.58, 1), color 250ms ease;
+      -webkit-transition: top 300ms cubic-bezier(0.42, 0, 0.58, 1), color 250ms ease;
     }
   }
 }
@@ -127,8 +120,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
-  transition: top 400ms cubic-bezier(0.42, 0, 0.58, 1), color 250ms ease;
-  -webkit-transition: top 400ms cubic-bezier(0.42, 0, 0.58, 1), color 250ms ease;
+  transition: top 300ms cubic-bezier(0.42, 0, 0.58, 1), color 250ms ease;
+  -webkit-transition: top 300ms cubic-bezier(0.42, 0, 0.58, 1), color 250ms ease;
   z-index: 5;
 }
 
@@ -136,7 +129,7 @@
   font-family: "BebasNeue", sans-serif;
   position: absolute;
   font-size: 1.2rem;
-  background-color: $color-primary;
+  background-color: $color-secondary;
   color: $color-grey-1;
   text-decoration: none;
   border-radius: 0 1rem 1rem 0;
