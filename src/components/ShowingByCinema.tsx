@@ -1,8 +1,8 @@
 import { useRef, useEffect } from "react";
-import { FilmType } from "../types";
+import { TimeSortedFilmType } from "../types";
 
 type ShowingByCinemaProps = {
-  showing: FilmType
+  showing: TimeSortedFilmType
 }
 
 const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
@@ -33,6 +33,10 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
       if (activeRef) observer.unobserve(activeRef);
     }
   }, []);
+
+  if (!showing.dates || !Object.keys(showing.dates).length) {
+    return null;
+  }
 
   return (
     <div className="showing-by-cinema-container" ref={showingRef}>
@@ -73,17 +77,17 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
           <span>Cast:</span>
           {showing.cast.split(",").join(", ")}
         </div>
-        {/* loop over show times once data structure is known */}
         <div className="showing-show-times-container">
-          <div className="showing-show-times-row">
-            <div className="showing-show-time-date">17th June</div>
-            <div className="showing-show-time">15:30</div>
-            <div className="showing-show-time">18:30</div>
-          </div>
-          <div className="showing-show-times-row">
-            <div className="showing-show-time-date">21st September</div>
-            <div className="showing-show-time">19:00</div>
-          </div>
+          {Object.keys(showing.dates).map(date => {              
+              return (
+                <div className="showing-show-times-row" key={date}>
+                  <div className="showing-show-time-date">{date}</div>
+                  {showing.dates[date].map(time => {
+                    return <div className="showing-show-time" key={time}>{time}</div>
+                  })}
+                </div>
+              )
+            })}
         </div>
       </div>
     </div>
