@@ -1,4 +1,4 @@
-export type FilmType = {
+export interface FilmType {
   cast: string,
   cinema_address: string,
   cinema_name: string,
@@ -14,7 +14,19 @@ export type FilmType = {
   rating?: number,
   release_date: string,
   runtime: number,
-  start_time: string,
   synopsis: string,
   tagline: string,
+}
+
+export interface UnsortedFilmType extends FilmType {
+  start_time: {
+    date: string,
+    time: string
+  }
+}
+
+export interface TimeSortedFilmType extends FilmType {
+  dates: {
+    [key: string]: string[];
+  }
 }
