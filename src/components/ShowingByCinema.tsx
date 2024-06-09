@@ -1,14 +1,17 @@
 import { useRef, useEffect } from "react";
 import { TimeSortedFilmType } from "../types";
 
+import Showtimes from "./Showtimes";
+
 type ShowingByCinemaProps = {
   showing: TimeSortedFilmType
 }
 
 const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
   const showingRef = useRef<HTMLDivElement>(null);
-  const trailerURL = showing.original_title.split(" ").join("+") + "" + "+trailer";
-
+  const releaseYear = showing.release_date.slice(0, 4);
+  const trailerURL = `${showing.original_title.split(" ").join("+")}+${releaseYear}+trailer`;
+  
   useEffect(() => {
     const activeRef = showingRef.current;
     if (!activeRef) return;
@@ -34,31 +37,39 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
     }
   }, []);
 
+  // if there are more than 2 dates for a showing, break them into 2 columns
+  const renderShowtimes = () => {
+    const dates = Object.keys(showing.dates);
+    const halfLength = Math.ceil(dates.length / 2);
+    const columns = dates.length < 3 ? [dates] : [dates.slice(0, halfLength), dates.slice(halfLength)];
+    return columns.map(column => <Showtimes dates={column} showing={showing} />)
+  }
+
   if (!showing.dates || !Object.keys(showing.dates).length) {
     return null;
   }
 
   return (
     <div className="showing-by-cinema-container" ref={showingRef}>
-      <div className="showing-by-cinema-poster-container">
-        <a
-          className="showing-by-cinema-trailer-container"
-          href={`https://www.youtube.com/results?search_query=${trailerURL}`}
-          rel="noreferrer"
-          target="_blank"
-        >
+      <a 
+        className="showing-by-cinema-poster-container"
+        href={`https://www.youtube.com/results?search_query=${trailerURL}`}
+        rel="noreferrer"
+        target="_blank"
+      >
+        <div className="showing-by-cinema-trailer-container">
           <i className="fa-regular fa-circle-play showing-by-cinema-trailer-play-btn" />
           <div className="showing-by-cinema-trailer-link">
               Watch trailer
           </div>
-        </a>
+        </div>
         <img src={showing.poster_hi_res} className="showing-by-cinema-poster" />
-      </div>
+      </a>
       <div className="showing-by-cinema-text-container">
         <h4 className="showing-by-cinema-title">{showing.original_title}</h4>
-        <div className="showing-by-cinema-genres">{showing.genres}</div>
+        <div className="showing-by-cinema-genres">{showing.genres.split(",").join(", ")}</div>
         <div className="showing-by-cinema-runtime-container">
-          <div>2023</div>
+          <div>{releaseYear}</div>
           {showing.rating &&
             <a
               className="showing-by-cinema-rating-container"
@@ -77,18 +88,7 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
           <span>Cast:</span>
           {showing.cast.split(",").join(", ")}
         </div>
-        <div className="showing-show-times-container">
-          {Object.keys(showing.dates).map(date => {              
-              return (
-                <div className="showing-show-times-row" key={date}>
-                  <div className="showing-show-time-date">{date}</div>
-                  {showing.dates[date].map(time => {
-                    return <div className="showing-show-time" key={time}>{time}</div>
-                  })}
-                </div>
-              )
-            })}
-        </div>
+        <div className="showing-show-times-container">{renderShowtimes()}</div>
       </div>
     </div>
   )
