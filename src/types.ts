@@ -1,5 +1,5 @@
 export interface FilmType {
-  cast: string,
+  cast?: string,
   cinema_address: string,
   cinema_name: string,
   cinema_town: string
