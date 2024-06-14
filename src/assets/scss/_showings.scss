@@ -105,7 +105,6 @@
 
 .showing-by-cinema-trailer-play-btn {
   position: absolute;
-  // color: $color-primary;
   color: $color-primary-highlight;
   font-size: 3rem;
   border-radius: 50%;
@@ -138,9 +137,23 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+
+  i {
+    color: $color-secondary;
+    width: 1rem;
+  }
 }
 
 .showing-by-cinema-text-container-mobile {
+  display: none;
+
+  i {
+    color: $color-secondary;
+    width: 1rem;
+  }
+}
+
+.showing-by-cinema-optional-text-container {
   display: none;
 }
 
@@ -155,12 +168,13 @@
   display: none;
   width: 100%;
   text-align: center;
+  padding: 0 0.25rem;
   margin-bottom: 0.5rem;
 }
 
 .showing-by-cinema-genres {
   font-size: 0.8rem;
-  color: $color-secondary;
+  color: $color-text-secondary;
   font-weight: 500;
   margin: -0.5rem 0 0.5rem 0;
 }
@@ -173,46 +187,46 @@
 
 .showing-by-cinema-cast-container {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.5rem;
   margin-top: 0.25rem;
-}
-  
-.showing-by-cinema-cast-title {
-  font-weight: 500;
-  font-size: 0.85rem;
+
+  i {
+    position: relative;
+    font-size: 0.85rem;
+    color: $color-secondary;
+    top: 0.2rem;
+
+    &::before {
+      font-weight: 900;
+    }
+  }
 }
 
 .showing-by-cinema-cast {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  height: max-content;
   gap: 0 0.25rem;
   font-size: 0.85rem;
-  color: $color-secondary;
+  color: $color-text-secondary;
 }
 
 .showing-by-cinema-details-container {
   display: flex;
   gap: 1.5rem;
-
-  i {
-    color: $color-primary;
-  }
 }
 
 .showing-by-cinema-release {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-
-  i {
-    width: 1rem;
-  }
+  gap: 0.5rem;
 }
 
 .showing-by-cinema-rating-container {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
 
   &:link,
   &:visited {
@@ -247,11 +261,7 @@
 .showing-by-cinema-runtime-container {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-
-  i {
-    width: 1rem;
-  }
+  gap: 0.5rem;
 }
 
 .showing-show-times-container {
@@ -259,7 +269,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem 8rem;
-  color: $color-text-secondary;
+  color: $color-text;
   margin-top: 1rem;
 }
 
@@ -276,14 +286,16 @@
 
 .showing-show-times-row {
   display: flex;
+  align-items: center;
+  align-items: flex-start;
 }
 
 .showing-show-time-date {
   position: relative;
   font-size: 1.25rem;
-  min-width: 6.6rem;
+  min-width: 7.2rem;
   height: fit-content;
-  top: 0.25rem;
+  top: 0.15rem;
 }
 
 .showing-show-times {
@@ -292,7 +304,6 @@
   align-items: center;
   gap: 0.6rem;
 }
-
 
 .showing-show-time {
   font-size: 1.3rem;

@@ -44,6 +44,7 @@
   }
 }
 
+// mobile layout
 @media screen and (max-width: 600px) {
   .showing-by-cinema-container {
     gap: 1rem;
@@ -68,6 +69,10 @@
     display: flex;
   }
 
+  .showing-by-cinema-optional-text-container {
+    display: block;
+  }
+
   .showing-by-cinema-details-container {
     flex-direction: column;
     gap: 1rem;
@@ -78,4 +83,48 @@
     font-size: 0.9rem;
     color: $color-secondary;
   }
+
+  .showing-show-time {
+    font-size: 1.2rem;
+    padding: 0.1rem 0.7rem;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .showing-show-time-date {
+    font-size: 1.1rem;
+    min-width: 6.2rem;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .films-section {
+    padding: 0.75rem;
+  }
+
+  .films-title {
+    font-size: 3.1rem;
+  }
+
+  .films-display-by-container {
+    font-size: 1.75rem;
+  }
+
+  .films-display-by-btn {
+    font-size: 1.5rem;
+    width: 7rem;
+  }
+  
+  .films-display-by-btn-current {
+    font-size: 1.6rem;
+  }
+
+  .showing-by-cinema-poster-container {
+    width: 60%;
+  }
+
+  .showing-by-cinema-details-container {
+    font-size: 0.9rem;
+  } 
 }

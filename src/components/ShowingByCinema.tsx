@@ -73,7 +73,7 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
       <div className="showing-by-cinema-text-container-mobile">
         <div className="showing-by-cinema-details-container">
           <div className="showing-by-cinema-release">
-            <i className="fa-regular fa-calendar showing-by-cinema-release-icon" />
+            <i className="fa-regular fa-calendar" />
             {releaseYear}
           </div>
           <div className="showing-by-cinema-runtime-container">
@@ -97,7 +97,7 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
       <p className="showing-by-cinema-description">{showing.synopsis}</p>
         {showing.cast &&
           <div className="showing-by-cinema-cast-container">
-            <span className="showing-by-cinema-cast-title">Cast:</span>
+            <i className="fa fa-solid fa-user-group showing-by-cinema-cast-icon" />
             <div className="showing-by-cinema-cast">
               {showing.cast.split(",").map((castMember, i, arr) => (
                 <span key={castMember}>
@@ -113,7 +113,7 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
         <div className="showing-by-cinema-genres">{showing.genres.split(",").join(", ")}</div>
         <div className="showing-by-cinema-details-container">
           <div className="showing-by-cinema-release">
-            <i className="fa-regular fa-calendar showing-by-cinema-release-icon" />
+            <i className="fa-regular fa-calendar" />
             {releaseYear}
           </div>
           {showing.rating &&
@@ -135,7 +135,7 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
         <p className="showing-by-cinema-description">{showing.synopsis}</p>
         {showing.cast &&
           <div className="showing-by-cinema-cast-container">
-            <span className="showing-by-cinema-cast-title">Cast:</span>
+            <i className="fa fa-solid fa-user-group showing-by-cinema-cast-icon" />
             <div className="showing-by-cinema-cast">
               {showing.cast.split(",").map((castMember, i, arr) => (
                 <span key={castMember}>
