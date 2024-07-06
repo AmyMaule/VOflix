@@ -6,11 +6,12 @@
   max-width: 100%;
   height: 100vh;
   max-height: 100vh;
-  background-image: url("./hero-bg.jpg");
+  background-image: url("/hero-bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   top: -4rem;
   padding: 0 4rem;
+  margin-bottom: -4rem;
 
   &::after {
     content: "";
@@ -21,8 +22,9 @@
       rgba(0, 0, 0, 0.9) 0%, 
       rgba(0, 0, 0, 0.9) 25%,
       rgba(0, 0, 0, 0.8) 35%, 
-      rgba(0, 0, 0, 0.6) 60%, 
-      rgba(0, 0, 0, 0.1) 100%
+      rgba(0, 0, 0, 0.7) 60%,
+      rgba(0, 0, 0, 0.6) 70%,
+      rgba(0, 0, 0, 0.3) 100%
     );
     top: 0;
     left: 0;
@@ -37,24 +39,33 @@
   left: 0;
   z-index: 50;
 
-  .zigzag {
+  .line-separator {
+    margin: 1rem 0 1.5rem 0;
     opacity: 0;
-    animation: appear 400ms ease 900ms forwards;
-    -webkit-animation: appear 400ms ease 900ms forwards;
+    animation: stretch 400ms ease 900ms forwards;
+    -webkit-animation: stretch 400ms ease 900ms forwards;
   }
 }
 
 .hero-title {
   position: relative;
-  font-size: 4rem;
+  font-size: 3.25rem;
+  white-space: pre-wrap;
+  max-width: 37rem;
   opacity: 0;
   animation: slide-up-far 600ms ease forwards;
   -webkit-animation: slide-up-far 600ms ease forwards;
 }
 
+.hero-title-logo {
+  color: $color-primary-highlight;
+}
+
 .hero-subtitle {
   position: relative;
-  font-size: 1.75rem;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.6rem;
+  max-width: 41rem;
   opacity: 0;
   animation: slide-up-far 500ms ease 400ms forwards;
 	-webkit-animation: slide-up-far 500ms ease 400ms forwards;
