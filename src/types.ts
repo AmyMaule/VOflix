@@ -30,3 +30,11 @@ export interface TimeSortedFilmType extends FilmType {
     [key: string]: string[];
   }
 }
+
+export interface CinemaType {
+  name: string,
+  town: string,
+  additional_info: null,
+  address: string,
+  gps_coordinates: number[]
+}

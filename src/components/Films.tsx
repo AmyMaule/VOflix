@@ -1,23 +1,44 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+import { renderError } from "../utilities";
+import { CinemaType, UnsortedFilmType } from "../types";
 
 import ShowingsByCinema from "./ShowingsByCinema";
 
+type DataType = UnsortedFilmType[] | CinemaType[];
+
 const Films = () => {
-  const [showings, setShowings] = useState([]);
+  const [showings, setShowings] = useState<UnsortedFilmType[]>([]);
+  const [cinemas, setCinemas] = useState<CinemaType[]>([]);
   const [displayBy, setDisplayBy] = useState<"cinema" | "film">("cinema");
 
+  // The server can be temperamental if multiple queries are performed too close together
+  const getData = <T extends DataType>(
+    url: string, 
+    setData: React.Dispatch<React.SetStateAction<T>>, 
+    retries = 0
+  ) => {
+    axios.get<T>(url)
+      .then(res => setData(res.data))
+      .catch(err => {
+        if (retries < 3) {
+          setTimeout(() => {
+            getData(url, setData, retries + 1);
+          }, 1050);
+        } else {
+          renderError(err);
+        }
+      });
+  };
+  
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_BASEURL}/search`)
-    .then((res) =>  {
-      setShowings(res.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    const baseUrl = import.meta.env.VITE_BASEURL;
+    getData(`${baseUrl}/search`, setShowings);
+    getData(`${baseUrl}/cinemas`, setCinemas);
   }, []);
 
-  if (!showings.length) return null;
+  if (!showings.length || !cinemas.length) return null;
 
   return (
     <div className="films-section">
