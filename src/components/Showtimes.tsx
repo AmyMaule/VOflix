@@ -1,11 +1,11 @@
-import { TimeSortedFilmType } from "../types";
+import { DatesType } from "../types";
 
 type ShowtimesProps = {
   dates: string[],
-  showing: TimeSortedFilmType
+  datesContainer: DatesType
 }
 
-const Showtimes = ({ dates, showing }: ShowtimesProps) => {
+const Showtimes = ({ dates, datesContainer }: ShowtimesProps) => {
   return (
     <div className="showing-show-times-column">
       {dates.map(date => {
@@ -13,12 +13,8 @@ const Showtimes = ({ dates, showing }: ShowtimesProps) => {
           <div className="showing-show-times-row" key={date}>
             <div className="showing-show-time-date">{date}</div>
             <div className="showing-show-times">
-              {showing.dates[date].map(time => {
-                return (
-                  <div className="showing-show-time" key={time}>
-                    <span>{time}</span>
-                  </div>
-                )
+              {datesContainer[date].map(time => {
+                return <div className="showing-show-time" key={time}>{time}</div>
               })}
             </div>
           </div>

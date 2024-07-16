@@ -1,13 +1,20 @@
-import { useRef, useEffect } from "react";
-import { TimeSortedFilmType } from "../types";
+import React, { useRef, useEffect } from "react";
+
+import { 
+  DatesType,
+  DisplayByType,
+  FilmSortedByFilmType,
+  FilmSortedByCinemaType
+} from "../types";
 
 import Showtimes from "./Showtimes";
 
 type ShowingByCinemaProps = {
-  showing: TimeSortedFilmType
+  displayBy: DisplayByType
+  showing: FilmSortedByCinemaType | FilmSortedByFilmType
 }
 
-const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
+const ShowingByCinema = ({ displayBy, showing }: ShowingByCinemaProps) => {
   const showingRef = useRef<HTMLDivElement>(null);
   const releaseYear = showing.release_date.slice(0, 4);
   const trailerURL = `${showing.original_title.split(" ").join("+")}+${releaseYear}+trailer`;
@@ -37,8 +44,8 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
     }
   }, []);
 
-  const renderShowtimes = () => {
-    const dates = Object.keys(showing.dates);
+  const renderShowtimes = (datesContainer: DatesType = showing.dates as DatesType) => {
+    const dates = Object.keys(datesContainer);
     const halfLength = Math.ceil(dates.length / 2);
     const maxShowtimes = Math.max(...Object.values(showing.dates).map(arr => arr.length));
     
@@ -48,7 +55,7 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
       ? [dates]
       : [dates.slice(0, halfLength), dates.slice(halfLength)]
     
-    return columns.map((column, i) => <Showtimes dates={column} showing={showing} key={i} />)
+    return columns.map((column, i) => <Showtimes dates={column} datesContainer={datesContainer} key={i} />)
   }
 
   if (!showing.dates || !Object.keys(showing.dates).length) {
@@ -145,11 +152,25 @@ const ShowingByCinema = ({ showing }: ShowingByCinemaProps) => {
             </div>
           </div>
         }
-        <div className="showing-show-times-container">{renderShowtimes()}</div>
+        {displayBy === "cinema"
+          ? <div className="showing-show-times-container">{renderShowtimes()}</div>
+          : <div className="showing-show-times-container showing-show-times-container-by-film">
+            {Object.keys(showing.dates).map(cinema => {
+              return (
+                <React.Fragment key={cinema}>
+                  <h6 className="showing-show-times-cinema">{cinema}</h6>
+                  {renderShowtimes(showing.dates[cinema] as DatesType)}
+                </React.Fragment>
+              )
+            })}
+          </div>
+        }
       </div>
-      <div className="showing-show-times-container showing-show-times-container-mobile">
-        {renderShowtimes()}
-      </div>
+      {displayBy === "cinema" && 
+        <div className="showing-show-times-container showing-show-times-container-mobile">
+          {renderShowtimes()}
+        </div>
+      }
     </div>
   )
 }
