@@ -9,12 +9,12 @@ import {
 
 import Showtimes from "./Showtimes";
 
-type ShowingByCinemaProps = {
+type ShowingProps = {
   displayBy: DisplayByType
   showing: FilmSortedByCinemaType | FilmSortedByFilmType
 }
 
-const ShowingByCinema = ({ displayBy, showing }: ShowingByCinemaProps) => {
+const Showing = ({ displayBy, showing }: ShowingProps) => {
   const showingRef = useRef<HTMLDivElement>(null);
   const releaseYear = showing.release_date.slice(0, 4);
   const trailerURL = `${showing.original_title.split(" ").join("+")}+${releaseYear}+trailer`;
@@ -43,6 +43,25 @@ const ShowingByCinema = ({ displayBy, showing }: ShowingByCinemaProps) => {
       if (activeRef) observer.unobserve(activeRef);
     }
   }, []);
+
+  const renderShowDates = () => {
+    if (displayBy === "cinema") {
+      return renderShowtimes();
+    } else {
+      return (
+        <>
+          {Object.keys(showing.dates).map(cinema => {
+            return (
+              <React.Fragment key={cinema}>
+                <h6 className="showing-show-times-cinema">{cinema}</h6>
+                {renderShowtimes(showing.dates[cinema] as DatesType)}
+              </React.Fragment>
+            )
+          })}
+        </>
+      )
+    }
+  }
 
   const renderShowtimes = (datesContainer: DatesType = showing.dates as DatesType) => {
     const dates = Object.keys(datesContainer);
@@ -152,27 +171,11 @@ const ShowingByCinema = ({ displayBy, showing }: ShowingByCinemaProps) => {
             </div>
           </div>
         }
-        {displayBy === "cinema"
-          ? <div className="showing-show-times-container">{renderShowtimes()}</div>
-          : <div className="showing-show-times-container showing-show-times-container-by-film">
-            {Object.keys(showing.dates).map(cinema => {
-              return (
-                <React.Fragment key={cinema}>
-                  <h6 className="showing-show-times-cinema">{cinema}</h6>
-                  {renderShowtimes(showing.dates[cinema] as DatesType)}
-                </React.Fragment>
-              )
-            })}
-          </div>
-        }
+        <div className="showing-show-times-container">{renderShowDates()}</div>
       </div>
-      {displayBy === "cinema" && 
-        <div className="showing-show-times-container showing-show-times-container-mobile">
-          {renderShowtimes()}
-        </div>
-      }
+      <div className="showing-show-times-container showing-show-times-container-mobile">{renderShowDates()}</div>
     </div>
   )
 }
 
-export default ShowingByCinema;
+export default Showing;

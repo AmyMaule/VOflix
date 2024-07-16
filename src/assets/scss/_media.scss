@@ -21,12 +21,17 @@
 
   .showing-show-times-container {
     display: none;
+    margin: 0;
   }
 
   .showing-show-times-container-mobile {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem 5rem;
+  }
+
+  .showing-by-cinema-cast-container {
+    margin: 0.5rem 0 0 0;
   }
 }
 
@@ -87,6 +92,10 @@
   .showing-show-time {
     font-size: 1.2rem;
     padding: 0.1rem 0.7rem;
+  }
+
+  .showing-show-times-cinema {
+    text-align: center;
   }
 }
 
