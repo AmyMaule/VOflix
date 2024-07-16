@@ -1,64 +1,12 @@
-import { useState, useEffect } from "react";
-
 import ShowingByCinema from "./ShowingByCinema";
 
-import { 
-  TimeSortedFilmType,
-  UnsortedFilmType 
-} from "../types";
+import { TimeSortedShowingsType } from "../types";
 
 type ShowingsByCinemaProps = {
-  showings: UnsortedFilmType[]
+  timeSortedShowings: TimeSortedShowingsType
 }
 
-type TimeSortedShowingsType = {
-  [cinema_name: string]: {
-    [film_name: string]: TimeSortedFilmType;
-  }
-};
-
-const ShowingsByCinema = ({ showings }: ShowingsByCinemaProps) => {
-  const [timeSortedShowings, setTimeSortedShowings] = useState<TimeSortedShowingsType>({});
-
-  // normalize showing data so that they are date and time sorted
-  useEffect(() => {
-    if (!showings.length || Object.keys(timeSortedShowings).length) return;
-    const showingTimes: TimeSortedShowingsType = {};
-
-    showings.forEach(showing => {
-      const { cinema_name: cinema, original_title: title, start_time: { date, time } } = showing;
-
-      // add cinema to showingTimes
-      if (!showingTimes?.[cinema]) {
-        showingTimes[cinema] = {};
-      }
-      
-      // add film to cinema
-      if (showingTimes[cinema]?.[title]) {
-        if (showingTimes[cinema][title]?.dates[date]) {
-          showingTimes[cinema][title].dates[date].push(time);
-        } else {
-          showingTimes[cinema][title].dates[date] = [time];
-        }
-
-      } else {
-        // Add all extra info except start_time
-        const { start_time, ...restOfShowing } = showing;
-        showingTimes[cinema][title] = {
-          ...restOfShowing,
-          dates: {
-            [date]: [time]
-          }
-        }
-      }
-    })
-    setTimeSortedShowings(showingTimes);
-  }, [showings]);
-
-  if (!Object.keys(timeSortedShowings).length) {
-    return null;
-  }
-
+const ShowingsByCinema = ({ timeSortedShowings }: ShowingsByCinemaProps) => {
   return (
     <>
       {Object.keys(timeSortedShowings).map(cinema => {

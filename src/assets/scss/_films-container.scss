@@ -70,6 +70,11 @@
     transition: 300ms all ease;
     -webkit-transition: 300ms all ease;
   }
+
+  span {
+    position: relative;
+    top: 0.12rem;
+  }
 }
 
 .films-display-by-btn-current {
