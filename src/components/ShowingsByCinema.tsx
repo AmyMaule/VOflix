@@ -1,4 +1,4 @@
-import ShowingByCinema from "./ShowingByCinema";
+import Showing from "./Showing";
 
 import { TimeSortedShowingsByCinemaType } from "../types";
 
@@ -20,7 +20,7 @@ const ShowingsByCinema = ({ timeSortedShowingsByCinema }: ShowingsByCinemaProps)
             </div>
             {films.map(filmTitle => {
               const showing = timeSortedShowingsByCinema[cinema][filmTitle];
-              return <ShowingByCinema displayBy="cinema" showing={showing} key={showing.original_title} />
+              return <Showing displayBy="cinema" showing={showing} key={showing.original_title} />
             })}
           </div>
         )
