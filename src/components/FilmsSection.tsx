@@ -2,19 +2,22 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { renderError } from "../utilities";
-import { CinemaType, UnsortedFilmType } from "../types";
+import { 
+  CinemaType,
+  FetchedDataType,
+  DisplayByType,
+  UnsortedFilmType 
+} from "../types";
 
-import ShowingsByCinema from "./ShowingsByCinema";
+import FilmsContainer from "./FilmsContainer";
 
-type DataType = UnsortedFilmType[] | CinemaType[];
-
-const Films = () => {
+const FilmsSection = () => {
   const [showings, setShowings] = useState<UnsortedFilmType[]>([]);
   const [cinemas, setCinemas] = useState<CinemaType[]>([]);
-  const [displayBy, setDisplayBy] = useState<"cinema" | "film">("cinema");
+  const [displayBy, setDisplayBy] = useState<DisplayByType>("cinema");
 
   // The server can be temperamental if multiple queries are performed too close together
-  const getData = <T extends DataType>(
+  const getData = <T extends FetchedDataType>(
     url: string, 
     setData: React.Dispatch<React.SetStateAction<T>>, 
     retries = 0
@@ -51,23 +54,20 @@ const Films = () => {
               className={`films-display-by-btn ${displayBy === "cinema" ? "films-display-by-btn-current" : ""}`}
               onClick={() => setDisplayBy("cinema")}
             >
-              Cinema
+              <span>Cinema</span>
             </button>
             <button
               className={`films-display-by-btn ${displayBy === "cinema" ? "" : "films-display-by-btn-current"}`}
               onClick={() => setDisplayBy("film")}
             >
-              Film
+              <span>Film</span>
             </button>
           </div>
         </div>
-        {displayBy === "cinema"
-          ? <ShowingsByCinema showings={showings} />
-          : <div></div>        
-        }
+        <FilmsContainer displayBy={displayBy} showings={showings} />
       </div>
     </div>
   )
 }
 
-export default Films;
+export default FilmsSection;

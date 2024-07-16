@@ -7,7 +7,7 @@ const Hero = () => {
         </h1>
         <div className="line-separator" />
         <p className="hero-subtitle">
-          V.O.flix is your go-to site for finding English-language films showing at your local cinema with up-to-date showtimes so you never miss a film!
+          V.O.flix is your go-to site for finding English-language films showing at your local cinema with up to date showtimes so you never miss a film!
         </p>
       </div>
     </div>

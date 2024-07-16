@@ -1,5 +1,5 @@
 import Hero from "./Hero";
-import Films from "./Films";
+import FilmsSection from "./FilmsSection";
 import Navbar from "./Navbar";
 
 const App = () => {
@@ -7,7 +7,7 @@ const App = () => {
     <div className="app-container">
       <Navbar />
       <Hero />
-      <Films />
+      <FilmsSection />
     </div>
   )
 }

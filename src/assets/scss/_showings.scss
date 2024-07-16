@@ -346,4 +346,10 @@
   width: fit-content;
   text-align: center;
   padding: 0.2rem 0.9rem;
+
+  // the font used is not a vertically centered font
+  span {
+    position: relative;
+    top: 0.12rem;
+  }
 }

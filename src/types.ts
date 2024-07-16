@@ -38,3 +38,13 @@ export interface CinemaType {
   address: string,
   gps_coordinates: number[]
 }
+
+export type FetchedDataType = UnsortedFilmType[] | CinemaType[];
+
+export type DisplayByType = "cinema" | "film";
+
+export type TimeSortedShowingsType = {
+  [cinema_name: string]: {
+    [film_name: string]: TimeSortedFilmType;
+  }
+};

@@ -14,7 +14,11 @@ const Showtimes = ({ dates, showing }: ShowtimesProps) => {
             <div className="showing-show-time-date">{date}</div>
             <div className="showing-show-times">
               {showing.dates[date].map(time => {
-                return <div className="showing-show-time" key={time}>{time}</div>
+                return (
+                  <div className="showing-show-time" key={time}>
+                    <span>{time}</span>
+                  </div>
+                )
               })}
             </div>
           </div>
