@@ -1,5 +1,6 @@
-import Hero from "./Hero";
 import FilmsSection from "./FilmsSection";
+import Footer from "./Footer";
+import Hero from "./Hero";
 import Navbar from "./Navbar";
 
 const App = () => {
@@ -8,6 +9,7 @@ const App = () => {
       <Navbar />
       <Hero />
       <FilmsSection />
+      <Footer />
     </div>
   )
 }

@@ -1,0 +1,17 @@
+.footer-container {
+  font-family: "BebasNeue", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 3rem;
+  padding: 0 1rem;
+}
+
+.footer-copyright {
+  color: $color-primary-highlight;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  font-size: 1.1rem;
+}
