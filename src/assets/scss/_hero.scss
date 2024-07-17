@@ -8,6 +8,7 @@
   max-height: 100vh;
   background-image: url("/hero-bg.jpg");
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   top: -4rem;
   padding: 0 4rem;
@@ -35,8 +36,6 @@
 .hero-text-container {
   font-family: "BebasNeue", sans-serif;
   width: 100%;
-  top: 0;
-  left: 0;
   z-index: 50;
 
   .line-separator {
