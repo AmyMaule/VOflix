@@ -11,23 +11,25 @@ import {
 } from "../types";
 
 type FilmsContainerProps = {
-  displayBy: DisplayByType
+  displayBy: DisplayByType,
+  selectedCinemas: string[],
   showings: UnsortedFilmType[]
 }
 
-const FilmsContainer = ({ displayBy, showings }: FilmsContainerProps) => {
+const FilmsContainer = ({ displayBy, selectedCinemas, showings }: FilmsContainerProps) => {
   const [timeSortedShowingsByCinema, setTimeSortedShowingsByCinema] = useState<TimeSortedShowingsByCinemaType>({});
   const [timeSortedShowingsByFilm, setTimeSortedShowingsByFilm] = useState<TimeSortedShowingsByFilmType>({});
 
   // normalize showing data so that they are date and time sorted
   useEffect(() => {
-    if (!showings.length || Object.keys(timeSortedShowingsByCinema).length) return;
+    if (!showings.length && !Object.keys(timeSortedShowingsByCinema).length) return;
 
     // Create normalized data sorted by cinema, and by film
     const showingTimesByCinema: TimeSortedShowingsByCinemaType = {};
     const showingTimesByFilm: TimeSortedShowingsByFilmType = {};
 
     showings.forEach(showing => {
+      if (!selectedCinemas.includes(showing.cinema_town)) return;
       const { cinema_name, cinema_town, original_title, start_time: { date, time } } = showing;
       const cinema = `${cinema_name}, ${cinema_town}`;
 
@@ -77,7 +79,17 @@ const FilmsContainer = ({ displayBy, showings }: FilmsContainerProps) => {
     })
     setTimeSortedShowingsByCinema(showingTimesByCinema);
     setTimeSortedShowingsByFilm(showingTimesByFilm);
-  }, [showings]);
+  }, [selectedCinemas, showings]);
+
+  if (!showings.length || !selectedCinemas.length) {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    return (
+      <div className="no-showings-found">
+        No showings match your search criteria.{"\n"}
+        Try searching a broader range of cinemas.
+      </div>
+    )
+  }
 
   if (!Object.keys(timeSortedShowingsByCinema).length) {
     return null;

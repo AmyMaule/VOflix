@@ -1,3 +1,35 @@
+.cinema-selector-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: $color-text;
+  font-size: 1.4rem;
+  width: 15rem;
+  border: 1px solid $color-primary;
+  background-color: $color-grey-1;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  padding: 0.4rem 1rem;
+  margin-top: 2rem;
+  -webkit-transition: all 200ms ease;
+  transition: all 200ms ease;
+
+  &::after {
+    font-family: "Font Awesome 5 Free";
+    content: "\f107";
+    font-size: 1rem;
+    font-weight: 900;
+  }
+
+  &:hover {
+    background-color: $color-grey-2;
+    border-color: $color-secondary;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+  }
+}
+
 .cinema-selector-container {
   font-family: "Open Sans", sans-serif;
   font-size: 0.8rem;
@@ -44,7 +76,7 @@
     background-color: $color-grey-2;
     border-color: $color-secondary;
     -webkit-transition: all 200ms ease;
-    transition: all 200ms ease;
+            transition: all 200ms ease;
   }
 }
 
@@ -85,7 +117,6 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin-top: 1rem;
 }
 
 .btn {

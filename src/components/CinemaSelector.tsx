@@ -1,32 +1,45 @@
 import { useState, useRef } from "react";
 
+import { getCinemaTowns } from "../utilities";
+
 import { CinemaType } from "../types";
 
 type CinemaSelectorProps = {
-  cinemas: CinemaType[]
+  cinemas: CinemaType[],
+  setSelectedCinemas: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const CinemaSelector = ({ cinemas }: CinemaSelectorProps) => {
+const CinemaSelector = ({ cinemas, setSelectedCinemas }: CinemaSelectorProps) => {
   const [showCinemas, setShowCinemas]  = useState(false);
   const cinemaListRef = useRef<HTMLUListElement>(null);
-
-  // Get unique cinema towns
-  const cinemaTowns =  [... new Set(cinemas.map(cinema => cinema.town))];
+  const cinemaTowns = getCinemaTowns(cinemas);
 
   const handleDeselect = () => {
     if (cinemaListRef.current) {
       const cinemas = [...cinemaListRef.current.querySelectorAll<HTMLInputElement>(".cinema-selector-input")];
-      const allSelected = cinemas.every(cinema => cinema.checked)
+      const allSelected = cinemas.every(cinema => cinema.checked);
       cinemas.forEach(cinema => cinema.checked = !allSelected);
     }
   }
 
+  const handleSearchCinemas = () => {
+    if (cinemaListRef.current) {
+      const cinemas = [...cinemaListRef.current.querySelectorAll<HTMLInputElement>(".cinema-selector-input")];
+      const currentlySelected = cinemas
+        .filter(cinema => cinema.checked)
+        .map(cinema => cinema.id);
+      setSelectedCinemas(currentlySelected);
+    }
+  }
+
   return (
-    <div>
-      {/* <h6>Select cinemas:</h6> */}
+    <>
       {showCinemas
         ? (
           <>
+            <div className="cinema-selector-dropdown" onClick={() => setShowCinemas(false)}>
+              Hide cinemas
+            </div>
             <div className="cinema-selector-container">
               <ul className="cinema-selector-list" ref={cinemaListRef}>
                 {cinemaTowns.map(cinemaTown => {
@@ -43,14 +56,16 @@ const CinemaSelector = ({ cinemas }: CinemaSelectorProps) => {
             </div>
             <div className="cinema-selector-btn-container">
               <button className="btn btn-select-cinemas" onClick={handleDeselect}>Select / deselect all</button>
-              <button className="btn btn-search">Search</button>
+              <button className="btn btn-search" onClick={handleSearchCinemas}>Search</button>
             </div>
           </>
         )
-        : <div></div>
+        : <div className="cinema-selector-dropdown" onClick={() => setShowCinemas(true)}>
+            Select cinemas
+          </div>
       }
 
-    </div>
+    </>
   )
 }
 

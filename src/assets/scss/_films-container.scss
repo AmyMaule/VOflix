@@ -93,3 +93,13 @@
     background-color: $color-primary-highlight;
   }
 }
+
+.no-showings-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.5rem;
+  white-space: pre-wrap;
+  margin: 9rem 0 3rem 0;
+}
