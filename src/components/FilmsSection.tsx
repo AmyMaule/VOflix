@@ -9,6 +9,7 @@ import {
   UnsortedFilmType 
 } from "../types";
 
+import CinemaSelector from "./CinemaSelector";
 import FilmsContainer from "./FilmsContainer";
 
 const FilmsSection = () => {
@@ -63,6 +64,7 @@ const FilmsSection = () => {
               <span>Film</span>
             </button>
           </div>
+          {displayBy === "cinema" && <CinemaSelector cinemas={cinemas} />}
         </div>
         <FilmsContainer displayBy={displayBy} showings={showings} />
       </div>

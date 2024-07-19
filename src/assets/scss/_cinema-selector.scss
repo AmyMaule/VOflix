@@ -1,0 +1,126 @@
+.cinema-selector-container {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.8rem;
+}
+
+.cinema-selector-list {
+  display: flex;
+  justify-content: space-evenly;
+  justify-content: space-around;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.7rem 0.5rem;
+  max-width: 42rem;
+  list-style: none;
+  padding: 1rem;
+}
+
+.cinema-selector-bubble {
+  display: block;
+  color: $color-text;
+  background-color: $color-grey-1;
+  border: 2px solid $color-grey-4;
+  border-radius: 100vmax;
+  -webkit-user-select: none;
+          user-select: none;
+  -webkit-transition: all 200ms ease;
+          transition: all 200ms ease;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  &::before {
+    display: inline-block;
+    font-family: "Font Awesome 5 Free";
+    content: "\f00d"; // xmark
+    width: 1.1rem;
+    font-weight: 900;
+    font-size: 0.8rem;
+    padding-right: 0.3rem;
+    -webkit-transition: transform 200ms ease-in-out;
+            transition: transform 200ms ease-in-out;
+  }
+
+  &:hover {
+    background-color: $color-grey-2;
+    border-color: $color-secondary;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+  }
+}
+
+.cinema-selector-input {
+  position: absolute;
+  opacity: 0;
+
+  // use focus-visible for accessibility
+  &:focus-visible + .cinema-selector-bubble {
+    border: 2px solid $color-primary !important;
+  }
+
+  &:checked + .cinema-selector-bubble {
+    color: $color-text;
+    background-color: $color-grey-2;
+    border: 2px solid $color-primary-highlight;
+    border-color: $color-primary-highlight;
+    -webkit-transition: all 200ms ease;
+            transition: all 200ms ease;
+
+    &::before {
+      content: "\f00c"; // tick
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+      -webkit-transition: transform 200ms ease;
+              transition: transform 200ms ease;
+    }
+
+    &:hover {
+      border-color: $color-secondary;
+    }
+  }
+}
+
+.cinema-selector-btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  color: $color-text;
+  background-color: $color-grey-1;
+  border-radius: 0.5rem;
+  -webkit-transition: 300ms all ease;
+          transition: 300ms all ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-grey-2;
+    border-color: $color-primary-highlight;
+    -webkit-transition: 300ms all ease;
+            transition: 300ms all ease;
+  }
+}
+
+.btn-select-cinemas {
+  font-family: "BebasNeue", sans-serif;
+  font-size: 1.25rem;
+  background-color: $color-grey-1;
+  border: 1px solid $color-grey-4;
+  letter-spacing: 1px;
+  border-radius: 0.5rem;
+  padding: 0.25rem 1.5rem;
+
+  &:hover {
+    border-color: $color-secondary;
+  }
+}
+
+.btn-search {
+  font-family: "BebasNeue", sans-serif;
+  font-size: 1.75rem;
+  border: 2px solid $color-primary;
+  padding: 0.5rem 3rem;
+}

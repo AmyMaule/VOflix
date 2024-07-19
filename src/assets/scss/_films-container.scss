@@ -51,8 +51,10 @@
 .films-display-by-btn {
   font-family: "BebasNeue", sans-serif;
   font-size: 1.75rem;
-  background-color: $color-primary;
-  color: $color-grey-1;
+  background-color: $color-grey-1;
+  color: $color-text;
+  border-color: $color-primary;
+
   width: 8rem;
   border: 3px solid $color-primary;
   border-radius: 100vmax;
@@ -65,7 +67,7 @@
   &:hover {
     background-color: $color-secondary;
     border-color: $color-secondary;
-    background-color: $color-primary-highlight;
+    background-color: $color-grey-2;
     border-color: $color-primary-highlight;
     transition: 300ms all ease;
     -webkit-transition: 300ms all ease;
@@ -80,11 +82,14 @@
 .films-display-by-btn-current {
   font-size: 1.8rem;
   background-color: $color-primary-highlight;
-  border-color: $color-grey-4;
+  color: $color-grey-1;
+  border-color: $color-primary-highlight;
+  cursor: default;
+
   transform: scale(1.2);
   -webkit-transform: scale(1.2);
 
   &:hover {
-    border-color: $color-grey-4;
+    background-color: $color-primary-highlight;
   }
 }
