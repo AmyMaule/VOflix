@@ -152,6 +152,14 @@
   .showing-show-times-cinema {
     text-align: center;
   }
+
+  .no-showings-found {
+    font-size: 1.2rem;
+    white-space: unset;
+    padding: 0 1rem;
+    margin: 7rem 0 4rem 0;
+  }
+  
 }
 
 @media screen and (max-width: 520px) {
