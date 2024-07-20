@@ -67,14 +67,22 @@ const Showing = ({ displayBy, showing }: ShowingProps) => {
     const dates = Object.keys(datesContainer);
     const halfLength = Math.ceil(dates.length / 2);
     const maxShowtimes = Math.max(...Object.values(showing.dates).map(arr => arr.length));
-    
+
     // if there are >2 dates for a showing, break them into 2 columns
     // unless there are >4 showtimes for one date or the screen is <1150px wide
     const columns = (dates.length <=2 || maxShowtimes > 4 || (window.innerWidth < 1150 && window.innerWidth > 830)) && maxShowtimes > 1
       ? [dates]
       : [dates.slice(0, halfLength), dates.slice(halfLength)]
     
-    return columns.map((column, i) => <Showtimes dates={column} datesContainer={datesContainer} key={i} />)
+    return columns.map((column, i) => (
+      <Showtimes 
+        dates={column}
+        datesContainer={datesContainer}
+        showing={showing}
+        key={i}
+      />
+     )
+    )
   }
 
   if (!showing.dates || !Object.keys(showing.dates).length) {

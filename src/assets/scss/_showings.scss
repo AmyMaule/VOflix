@@ -356,13 +356,23 @@
 }
 
 .showing-show-time {
+  display: block;
   font-size: 1.3rem;
   background-color: $color-primary;
   color: $color-grey-1;
   border-radius: 100vmax;
   width: fit-content;
+  text-decoration: none;
   text-align: center;
   padding: 0.2rem 0.9rem;
+  -webkit-transition: 300ms all ease;
+          transition: 300ms all ease;
+
+  &:hover {
+    background-color: $color-secondary;
+    -webkit-transition: 300ms all ease;
+            transition: 300ms all ease;
+  }
 
   // the font used is not a vertically centered font
   span {

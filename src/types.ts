@@ -4,6 +4,7 @@ export type DatesType = {
 
 export interface FilmType {
   cast?: string,
+  cinema_id: string,
   // cinema_address: string,
   cinema_name: string,
   cinema_town: string,
@@ -25,7 +26,8 @@ export interface FilmType {
 export interface UnsortedFilmType extends FilmType {
   start_time: {
     date: string,
-    time: string
+    time: string,
+    year: string
   }
 }
 
