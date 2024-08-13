@@ -1,0 +1,44 @@
+
+.btn {
+  font-family: "BebasNeue", sans-serif;
+  color: $color-text;
+  background-color: $color-grey-1;
+  border-radius: 0.5rem;
+  -webkit-transition: 300ms all ease;
+          transition: 300ms all ease;
+  padding: 0.25rem 1.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-grey-2;
+    border-color: $color-primary;
+    -webkit-transition: 300ms all ease;
+            transition: 300ms all ease;
+  }
+}
+
+.btn-select-cinemas {
+  font-size: 1.25rem;
+  background-color: $color-grey-1;
+  border: 1px solid $color-grey-4;
+  letter-spacing: 1px;
+  border-radius: 0.5rem;
+
+  &:hover {
+    border-color: $color-tertiary;
+  }
+}
+
+.btn-search {
+  font-size: 1.75rem;
+  border: 2px solid $color-secondary;
+  padding: 0.5rem 3rem;
+}
+
+.btn-contact-submit {
+  font-size: 2rem;
+  border: 2px solid $color-grey-4;
+  width: fit-content;
+  padding: 0.5rem 2rem;
+  margin: 0 auto;
+}

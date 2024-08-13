@@ -13,7 +13,7 @@
 
 .showings-by-cinema-subtitle {
   font-size: 0.9rem;
-  color: $color-primary-highlight;
+  color: $color-primary;
 }
 
 .showing-by-cinema-container {
@@ -23,8 +23,8 @@
   border-radius: 0.6rem;
   background-color: $color-grey-1;
   box-shadow:    
-  0px 1px 1px rgba($color-primary, 0.5),
-  0px 0 2px rgba($color-primary, 0.5);
+  0px 1px 1px rgba($color-secondary, 0.5),
+  0px 0 2px rgba($color-secondary, 0.5);
   top: 5rem;
   padding: 1rem 1.5rem;
   transition: 300ms all ease;
@@ -65,8 +65,8 @@
 
   &:hover {
     box-shadow:    
-    0px 2px 4px rgba($color-primary-highlight, 0.5),
-    0px 0 8px rgba($color-primary-highlight, 0.5);
+    0px 2px 4px rgba($color-primary, 0.5),
+    0px 0 8px rgba($color-primary, 0.5);
     transform: translateY(-0.3rem);
     -webkit-transform: translateY(-0.3rem);
     transition: 300ms all ease;
@@ -116,7 +116,7 @@
     }
 
     .showing-by-cinema-trailer-link {
-      background-color: $color-primary-highlight;
+      background-color: $color-primary;
       transition: 250ms all ease;
       -webkit-transition: 250ms all ease;
 
@@ -148,7 +148,7 @@
 
 .showing-by-cinema-trailer-play-btn {
   position: absolute;
-  color: $color-primary-highlight;
+  color: $color-primary;
   font-size: 3rem;
   border-radius: 50%;
   top: -100%;
@@ -164,7 +164,7 @@
   font-family: "BebasNeue", sans-serif;
   position: absolute;
   font-size: 1.2rem;
-  background-color: $color-secondary;
+  background-color: $color-tertiary;
   color: $color-grey-1;
   text-decoration: none;
   border-radius: 0 1rem 1rem 0;
@@ -182,7 +182,7 @@
   gap: 0.25rem;
 
   i {
-    color: $color-secondary;
+    color: $color-tertiary;
     width: 1rem;
   }
 }
@@ -191,7 +191,7 @@
   display: none;
 
   i {
-    color: $color-secondary;
+    color: $color-tertiary;
     width: 1rem;
   }
 }
@@ -236,7 +236,7 @@
   i {
     position: relative;
     font-size: 0.85rem;
-    color: $color-secondary;
+    color: $color-tertiary;
     top: 0.2rem;
 
     &::before {
@@ -323,7 +323,7 @@
 
 .showing-show-times-cinema {
   font-size: 1.5rem;
-  color: $color-primary-highlight;
+  color: $color-primary;
   width: 100%;
   margin-top: 0.5rem;
 }
@@ -358,7 +358,7 @@
 .showing-show-time {
   display: block;
   font-size: 1.3rem;
-  background-color: $color-primary;
+  background-color: $color-secondary;
   color: $color-grey-1;
   border-radius: 100vmax;
   width: fit-content;
@@ -369,7 +369,7 @@
           transition: 300ms all ease;
 
   &:hover {
-    background-color: $color-secondary;
+    background-color: $color-tertiary;
     -webkit-transition: 300ms all ease;
             transition: 300ms all ease;
   }

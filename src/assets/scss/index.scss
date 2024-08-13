@@ -3,12 +3,20 @@
 @import "utilities";
 @import "animations";
 
+// layout
 @import "navbar";
 @import "footer";
 
+// components
+@import "buttons";
+@import "contact";
 @import "hero";
 @import "films-container";
 @import "showings";
 @import "cinema-selector";
 
 @import "media";
+
+.hide {
+  display: none;
+}

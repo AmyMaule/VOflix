@@ -2,16 +2,29 @@
   font-family: "BebasNeue", sans-serif;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   height: 3rem;
   padding: 0 1rem;
 }
 
+.footer-link {
+  font-size: 1.25rem;
+  color: $color-primary;
+  text-decoration: none;
+  -webkit-transition: 300ms ease all;
+          transition: 300ms ease all;
+
+  &:hover {
+    color: $color-primary-highlight;
+    -webkit-transition: 300ms ease all;
+            transition: 300ms ease all;
+  }
+}
+
 .footer-copyright {
-  color: $color-primary-highlight;
+  color: $color-primary;
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  font-size: 0.85rem;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
 }

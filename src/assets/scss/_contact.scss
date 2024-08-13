@@ -1,0 +1,100 @@
+.contact-page-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - 7rem); // minus header + footer
+  padding: 3rem 6rem;
+  z-index: 5;
+}
+
+.contact-title {
+  font-family: "BebasNeue", sans-serif;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.contact-subtitle {
+  text-align: center;
+  color: $color-text-secondary;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 56rem;
+  min-height: 20rem;
+  width: 100%;
+  margin: 4rem auto 0 auto;
+
+  &.fade-out {
+    animation: fade-out 0.5s forwards;
+    -webkit-animation: fade-out 0.5s forwards;
+  }
+}
+
+.contact-inputs-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.contact-input {
+  font-family: "Kanit", sans-serif;
+  font-size: 1.1rem;
+  color: $color-text;
+  background-color: transparent;
+  width: 100%;
+  min-height: 2.5rem;
+  border: none;
+  border-bottom: 2px solid $color-secondary;
+  outline: none;
+  padding: 0.3rem;
+  cursor: pointer;
+  transition: 350ms ease all;
+  -webkit-transition: 350ms ease all;
+
+  &::placeholder {
+    opacity: 0.7;
+  }
+
+  &:hover {
+    border-color: $color-tertiary;
+    transition: 350ms ease all;
+    -webkit-transition: 350ms ease all;
+  }
+
+  &:focus {
+    border-color: $color-primary;
+    transition: 350ms ease all;
+    -webkit-transition: 350ms ease all;
+  }
+}
+
+.contact-textarea {
+  font-weight: 300;
+  min-height: 9rem;
+  resize: vertical;
+}
+
+.contact-success {
+  position: absolute;
+  font-weight: 300;
+  font-size: 1.2rem;
+  color: $color-text;
+  text-align: center;
+  white-space: pre-wrap;
+  opacity: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: contact-slide-up 0.5s 0.5s forwards;
+  -webkit-animation: contact-slide-up 0.5s 0.5s forwards;
+}
+
+.contact-error {
+  font-size: 1.1rem;
+  color: $color-primary;
+  text-align: center;
+  margin-top: 1rem;
+}
