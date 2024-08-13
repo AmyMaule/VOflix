@@ -6,7 +6,7 @@
   color: $color-text;
   font-size: 1.4rem;
   width: 15rem;
-  border: 1px solid $color-primary;
+  border: 1px solid $color-secondary;
   background-color: $color-grey-1;
   border-radius: 0.6rem;
   cursor: pointer;
@@ -24,7 +24,7 @@
 
   &:hover {
     background-color: $color-grey-2;
-    border-color: $color-secondary;
+    border-color: $color-tertiary;
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease;
   }
@@ -74,7 +74,7 @@
 
   &:hover {
     background-color: $color-grey-2;
-    border-color: $color-secondary;
+    border-color: $color-tertiary;
     -webkit-transition: all 200ms ease;
             transition: all 200ms ease;
   }
@@ -86,14 +86,14 @@
 
   // use focus-visible for accessibility
   &:focus-visible + .cinema-selector-bubble {
-    border: 2px solid $color-primary !important;
+    border: 2px solid $color-secondary !important;
   }
 
   &:checked + .cinema-selector-bubble {
     color: $color-text;
     background-color: $color-grey-2;
-    border: 2px solid $color-primary-highlight;
-    border-color: $color-primary-highlight;
+    border: 2px solid $color-primary;
+    border-color: $color-primary;
     -webkit-transition: all 200ms ease;
             transition: all 200ms ease;
 
@@ -106,7 +106,7 @@
     }
 
     &:hover {
-      border-color: $color-secondary;
+      border-color: $color-tertiary;
     }
   }
 }
@@ -117,41 +117,4 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-}
-
-.btn {
-  color: $color-text;
-  background-color: $color-grey-1;
-  border-radius: 0.5rem;
-  -webkit-transition: 300ms all ease;
-          transition: 300ms all ease;
-  cursor: pointer;
-
-  &:hover {
-    background-color: $color-grey-2;
-    border-color: $color-primary-highlight;
-    -webkit-transition: 300ms all ease;
-            transition: 300ms all ease;
-  }
-}
-
-.btn-select-cinemas {
-  font-family: "BebasNeue", sans-serif;
-  font-size: 1.25rem;
-  background-color: $color-grey-1;
-  border: 1px solid $color-grey-4;
-  letter-spacing: 1px;
-  border-radius: 0.5rem;
-  padding: 0.25rem 1.5rem;
-
-  &:hover {
-    border-color: $color-secondary;
-  }
-}
-
-.btn-search {
-  font-family: "BebasNeue", sans-serif;
-  font-size: 1.75rem;
-  border: 2px solid $color-primary;
-  padding: 0.5rem 3rem;
 }

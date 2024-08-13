@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -7,6 +9,7 @@ const Footer = () => {
         <span className="footer-copyright-symbol">&copy;</span>
         VOflix {currentYear}
       </div>
+      <Link to="/contact" className="footer-link">Contact Us</Link>
     </footer>
   )
 }

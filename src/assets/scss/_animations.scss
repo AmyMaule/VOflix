@@ -71,3 +71,44 @@
     width: 8rem;
   }
 }
+
+// Contact animations
+@keyframes contact-slide-up {
+  0% {
+    top: 25rem;
+    opacity: 0;
+  }
+  100% {
+    top: 15rem;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes contact-slide-up {
+  0% {
+    top: 25rem;
+    opacity: 0;
+  }
+  100% {
+    top: 15rem;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

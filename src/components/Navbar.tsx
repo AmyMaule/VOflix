@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   return (
     <header className="navbar-container">
-      <div className="navbar-logo">V.O.flix</div>
+      <Link className="navbar-logo" to="/">V.O.flix</Link>
     </header>
   )
 }

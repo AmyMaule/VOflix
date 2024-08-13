@@ -15,3 +15,10 @@ body {
   font-family: "Kanit", sans-serif;
   color: $color-text;
 }
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}

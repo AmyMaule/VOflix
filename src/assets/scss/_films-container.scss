@@ -53,10 +53,10 @@
   font-size: 1.75rem;
   background-color: $color-grey-1;
   color: $color-text;
-  border-color: $color-primary;
+  border-color: $color-secondary;
 
   width: 8rem;
-  border: 3px solid $color-primary;
+  border: 3px solid $color-secondary;
   border-radius: 100vmax;
   text-align: center;
   padding: 0.25rem 1rem;
@@ -65,10 +65,10 @@
   -webkit-transition: 300ms all ease;
 
   &:hover {
-    background-color: $color-secondary;
-    border-color: $color-secondary;
+    background-color: $color-tertiary;
+    border-color: $color-tertiary;
     background-color: $color-grey-2;
-    border-color: $color-primary-highlight;
+    border-color: $color-primary;
     transition: 300ms all ease;
     -webkit-transition: 300ms all ease;
   }
@@ -81,16 +81,16 @@
 
 .films-display-by-btn-current {
   font-size: 1.8rem;
-  background-color: $color-primary-highlight;
+  background-color: $color-primary;
   color: $color-grey-1;
-  border-color: $color-primary-highlight;
+  border-color: $color-primary;
   cursor: default;
 
   transform: scale(1.2);
   -webkit-transform: scale(1.2);
 
   &:hover {
-    background-color: $color-primary-highlight;
+    background-color: $color-primary;
   }
 }
 
