@@ -56,15 +56,15 @@ const FilmsSection = () => {
       <div className="films-container">
         <div className="films-display-by-container">
           Sort showings by:
-          <div className="films-display-by-btn-container">
+          <div className="btn-films-display-by-container">
             <button
-              className={`films-display-by-btn ${displayBy === "cinema" ? "films-display-by-btn-current" : ""}`}
+              className={`btn btn-films-display-by ${displayBy === "cinema" ? "btn-films-display-by-current" : ""}`}
               onClick={() => setDisplayBy("cinema")}
             >
               <span>Cinema</span>
             </button>
             <button
-              className={`films-display-by-btn ${displayBy === "cinema" ? "" : "films-display-by-btn-current"}`}
+              className={`btn btn-films-display-by ${displayBy === "cinema" ? "" : "btn-films-display-by-current"}`}
               onClick={() => setDisplayBy("film")}
             >
               <span>Film</span>

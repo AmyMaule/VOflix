@@ -43,55 +43,9 @@
   margin: 3rem auto 0 auto;
 }
 
-.films-display-by-btn-container {
+.btn-films-display-by-container {
   display: flex;
   gap: 2rem;
-}
-
-.films-display-by-btn {
-  font-family: "BebasNeue", sans-serif;
-  font-size: 1.75rem;
-  background-color: $color-grey-1;
-  color: $color-text;
-  border-color: $color-secondary;
-
-  width: 8rem;
-  border: 3px solid $color-secondary;
-  border-radius: 100vmax;
-  text-align: center;
-  padding: 0.25rem 1rem;
-  cursor: pointer;
-  transition: 300ms all ease;
-  -webkit-transition: 300ms all ease;
-
-  &:hover {
-    background-color: $color-tertiary;
-    border-color: $color-tertiary;
-    background-color: $color-grey-2;
-    border-color: $color-primary;
-    transition: 300ms all ease;
-    -webkit-transition: 300ms all ease;
-  }
-
-  span {
-    position: relative;
-    top: 0.12rem;
-  }
-}
-
-.films-display-by-btn-current {
-  font-size: 1.8rem;
-  background-color: $color-primary;
-  color: $color-grey-1;
-  border-color: $color-primary;
-  cursor: default;
-
-  transform: scale(1.2);
-  -webkit-transform: scale(1.2);
-
-  &:hover {
-    background-color: $color-primary;
-  }
 }
 
 .no-showings-found {

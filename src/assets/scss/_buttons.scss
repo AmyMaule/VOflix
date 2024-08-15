@@ -42,3 +42,50 @@
   padding: 0.5rem 2rem;
   margin: 0 auto;
 }
+
+
+.btn-films-display-by {
+  font-family: "BebasNeue", sans-serif;
+  font-size: 1.75rem;
+  background-color: $color-grey-1;
+  color: $color-text;
+  border-color: $color-secondary;
+  width: 8rem;
+  border: 3px solid $color-secondary;
+  border-radius: 100vmax;
+  text-align: center;
+  padding: 0.25rem 1rem;
+  cursor: pointer;
+  transition: 300ms all linear;
+  -webkit-transition: 300ms all linear;
+
+  &:hover {
+    background-color: $color-grey-2;
+    border-color: $color-primary;
+    transition: 300ms all linear;
+    -webkit-transition: 300ms all linear;
+  }
+
+  span {
+    position: relative;
+    top: 0.12rem;
+  }
+}
+
+.btn-films-display-by-current {
+  font-size: 1.8rem;
+  background-color: $color-primary;
+  color: $color-grey-1;
+  border-color: $color-primary;
+  cursor: default;
+  transform: scale(1.15);
+  -webkit-transform: scale(1.15);
+  transition: 300ms transform linear;
+  -webkit-transition: 300ms transform linear;
+
+  &:hover {
+    background-color: $color-primary;
+    transition: 300ms transform linear;
+    -webkit-transition: 300ms transform linear;
+  }
+}
