@@ -13,20 +13,12 @@ type ShowtimesProps = {
 
 const Showtimes = ({ dates, datesContainer, showing }: ShowtimesProps) => {
   const getShowingLink = (date: string) => {
-    const today = new Date();
     const showingDate = new Date(date);
-    // set hours to 0 for easier comparisons; the time does not matter for these purposes
-    today.setHours(0, 0, 0, 0);
-    showingDate.setHours(0, 0, 0, 0);
-
-    // the link is different if the showing is today
-    if (showingDate.getTime() === today.getTime()) {
-      return `https://www.allocine.fr/seance/salle_gen_csalle=${showing.cinema_id}.html`;
-    } else {
-      const msPerDay = 24 * 60 * 60 * 1000;
-      const daysUntilShowing = (showingDate.getTime() - today.getTime()) / msPerDay;
-      return `https://www.allocine.fr/seance/d-${daysUntilShowing}/salle_gen_csalle=${showing.cinema_id}.html`;
-    }
+    const day = (showingDate.getDate()).toString().padStart(2, "0");
+    const month = (showingDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = showingDate.getFullYear();
+    const showingDateString = `${year}-${month}-${day}`;
+    return `https://www.allocine.fr/seance/salle_gen_csalle=${showing.cinema_id}.html#shwt_date=${showingDateString}`;
   }
 
   return (
