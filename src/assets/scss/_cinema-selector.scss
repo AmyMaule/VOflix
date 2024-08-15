@@ -12,6 +12,8 @@
   cursor: pointer;
   padding: 0.4rem 1rem;
   margin-top: 2rem;
+  user-select: none;
+  -webkit-user-select: none;
   -webkit-transition: all 200ms ease;
   transition: all 200ms ease;
 
@@ -31,6 +33,25 @@
 }
 
 .cinema-selector-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem 0.5rem;
+  max-height: 28rem;
+  opacity: 1;
+  transform: scaleY(1);
+  transform-origin: top;
+  transition: all 300ms ease;
+}
+
+.cinema-selector-container-hide {
+  max-height: 0;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: all 300ms ease;
+}
+ 
+.cinema-selector-list-container {
   font-family: "Open Sans", sans-serif;
   font-size: 0.8rem;
 }
