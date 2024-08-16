@@ -132,6 +132,25 @@
   }
 }
 
+.cinema-selector-link-container {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.8rem;
+  text-align: center;
+  margin: -0.5rem 0 1rem 0;
+
+  a {
+    color: $color-primary;
+    -webkit-transition: 250ms all ease;
+    transition: 250ms all ease;
+
+    &:hover {
+      color: $color-secondary;
+      -webkit-transition: 250ms all ease;
+      transition: 250ms all ease;
+    }
+  }
+}
+
 .cinema-selector-btn-container {
   display: flex;
   flex-direction: column;

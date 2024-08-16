@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import { getCinemaTowns } from "../utilities";
 
@@ -51,6 +52,9 @@ const CinemaSelector = ({ cinemas, setSelectedCinemas }: CinemaSelectorProps) =>
               )
             })}
           </ul>
+        </div>
+        <div className="cinema-selector-link-container">
+          Don't see your local cinema listed?{"\n"} <Link to="/contact">Contact us</Link> and we'll do our best to add it!
         </div>
         <div className="cinema-selector-btn-container">
           <button className="btn btn-select-cinemas" onClick={handleDeselect}>Select / deselect all</button>
