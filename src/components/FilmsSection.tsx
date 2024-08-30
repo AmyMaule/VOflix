@@ -70,9 +70,7 @@ const FilmsSection = () => {
               <span>Film</span>
             </button>
           </div>
-          {displayBy === "cinema" && (
-            <CinemaSelector cinemas={cinemas} setSelectedCinemas={setSelectedCinemas} />
-          )}
+          <CinemaSelector cinemas={cinemas} setSelectedCinemas={setSelectedCinemas} />
         </div>
         <FilmsContainer displayBy={displayBy} showings={showings} selectedCinemas={selectedCinemas} />
       </div>
