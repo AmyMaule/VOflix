@@ -83,7 +83,6 @@ const FilmsContainer = ({ displayBy, selectedCinemas, showings }: FilmsContainer
   }, [selectedCinemas, showings]);
 
   if (!showings.length || !selectedCinemas.length) {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     return (
       <div className="no-showings-found">
         No showings match your search criteria.{"\n"}
