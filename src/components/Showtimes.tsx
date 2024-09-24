@@ -6,12 +6,13 @@ import {
 } from "../types";
 
 type ShowtimesProps = {
+  columnNumber: number,
   dates: string[],
   datesContainer: DatesType,
   showing: FilmSortedByCinemaType | FilmSortedByFilmType
 }
 
-const Showtimes = ({ dates, datesContainer, showing }: ShowtimesProps) => {
+const Showtimes = ({ columnNumber, dates, datesContainer, showing }: ShowtimesProps) => {
   const getShowingLink = (date: string) => {
     const showingDate = new Date(date);
     const day = (showingDate.getDate()).toString().padStart(2, "0");
@@ -21,8 +22,23 @@ const Showtimes = ({ dates, datesContainer, showing }: ShowtimesProps) => {
     return `https://www.allocine.fr/seance/salle_gen_csalle=${showing.cinema_id}.html#shwt_date=${showingDateString}`;
   }
 
+  // Ensure columns have a consistent width whether they have 1, 2, or 3 showings per date
+  const setMargin = () => {
+    if (columnNumber === 0) {
+      // If there are 3 show times in the row, reduce the margin (but not if there are >3)
+      if (dates.some(date => datesContainer[date].length === 3) && 
+         !dates.some(date => datesContainer[date].length > 3)) {
+        return "-4.75rem";
+      // If there is one showing only, increase the margin
+      } else if (dates.every(date => datesContainer[date].length === 1)) {
+        return "4.75rem"
+      }
+    }
+      return "";      
+  }
+
   return (
-    <div className="showing-show-times-column">
+    <div className="showing-show-times-column" style={{marginRight: setMargin()}}>
       {dates.map(date => {
         const showingLink = getShowingLink(date);
         const splitDate = date.split(" ");

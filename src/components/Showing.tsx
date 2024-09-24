@@ -75,7 +75,8 @@ const Showing = ({ displayBy, showing }: ShowingProps) => {
       : [dates.slice(0, halfLength), dates.slice(halfLength)]
     
     return columns.map((column, i) => (
-      <Showtimes 
+      <Showtimes
+        columnNumber={i}
         dates={column}
         datesContainer={datesContainer}
         showing={showing}
