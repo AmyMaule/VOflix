@@ -16,12 +16,13 @@ const FilmsSection = () => {
   const [showings, setShowings] = useState<UnsortedFilmType[]>([]);
   const [cinemas, setCinemas] = useState<CinemaType[]>([]);
   const [displayBy, setDisplayBy] = useState<DisplayByType>("cinema");
-  const [selectedCinemas, setSelectedCinemas]  = useState<string[]>([]);
+  const storedSelectedCinemas = localStorage.getItem("selectedCinemas");
+  const [selectedCinemas, setSelectedCinemas]  = useState<string[]>(storedSelectedCinemas ? JSON.parse(storedSelectedCinemas) : []);
 
   // The server can be temperamental if multiple queries are performed too close together
   const getData = <T extends FetchedDataType>(
     url: string, 
-    setData: React.Dispatch<React.SetStateAction<T>>, 
+    setData: React.Dispatch<React.SetStateAction<T>>,
     retries = 0
   ) => {
     axios.get<T>(url)
@@ -38,6 +39,7 @@ const FilmsSection = () => {
   };
 
   useEffect(() => {
+    if (selectedCinemas.length) return;
     const cinemaTowns = getCinemaTowns(cinemas);
     setSelectedCinemas(cinemaTowns);
   }, [cinemas]);
@@ -70,7 +72,11 @@ const FilmsSection = () => {
               <span>Film</span>
             </button>
           </div>
-          <CinemaSelector cinemas={cinemas} setSelectedCinemas={setSelectedCinemas} />
+          <CinemaSelector
+            cinemas={cinemas}
+            selectedCinemas={selectedCinemas}
+            setSelectedCinemas={setSelectedCinemas}
+          />
         </div>
         <FilmsContainer displayBy={displayBy} showings={showings} selectedCinemas={selectedCinemas} />
       </div>
