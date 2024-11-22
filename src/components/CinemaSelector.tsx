@@ -7,13 +7,16 @@ import { CinemaType } from "../types";
 
 type CinemaSelectorProps = {
   cinemas: CinemaType[],
+  selectedCinemas: string[],
   setSelectedCinemas: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const CinemaSelector = ({ cinemas, setSelectedCinemas }: CinemaSelectorProps) => {
-  const [showCinemas, setShowCinemas]  = useState(false);
+const CinemaSelector = ({ cinemas, selectedCinemas, setSelectedCinemas }: CinemaSelectorProps) => {
+  const [showCinemas, setShowCinemas]  = useState(true);
   const cinemaListRef = useRef<HTMLUListElement>(null);
   const cinemaTowns = getCinemaTowns(cinemas);
+
+  const handleDefaultChecked = (cinemaTown: string) => selectedCinemas.includes(cinemaTown) || !selectedCinemas.length;
 
   const handleDeselect = () => {
     if (cinemaListRef.current) {
@@ -29,6 +32,9 @@ const CinemaSelector = ({ cinemas, setSelectedCinemas }: CinemaSelectorProps) =>
       const currentlySelected = cinemas
         .filter(cinema => cinema.checked)
         .map(cinema => cinema.id);
+
+      // Add currentlySelected to local storage for retrieval on next visit
+      localStorage.setItem("selectedCinemas", JSON.stringify(currentlySelected));
       setSelectedCinemas(currentlySelected);
     }
   }
@@ -44,7 +50,13 @@ const CinemaSelector = ({ cinemas, setSelectedCinemas }: CinemaSelectorProps) =>
             {cinemaTowns.map(cinemaTown => {
               return (
                 <li className="cinema-selector-list-item" key={cinemaTown}>
-                  <input className="cinema-selector-input" type="checkbox" id={cinemaTown} value={cinemaTown} defaultChecked />
+                  <input
+                    className="cinema-selector-input"
+                    defaultChecked={handleDefaultChecked(cinemaTown)}
+                    id={cinemaTown}
+                    type="checkbox"
+                    value={cinemaTown}
+                  />
                   <label className="cinema-selector-bubble" htmlFor={cinemaTown}>
                     {cinemaTown}
                   </label>
