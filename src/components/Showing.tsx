@@ -162,10 +162,12 @@ const Showing = ({ displayBy, showing }: ShowingProps) => {
               <div className="imdb-rating">{showing.rating.toFixed(1)}</div>
             </a>
           }
-          <div className="showing-by-cinema-runtime-container">
-            <i className="fa-regular fa-clock" />
-            {showing.runtime} minutes
-          </div>
+          {showing.runtime &&
+            <div className="showing-by-cinema-runtime-container">
+              <i className="fa-regular fa-clock" />
+              {showing.runtime} minutes
+            </div>
+          }
         </div>
         <p className="showing-by-cinema-description">{showing.synopsis}</p>
         {showing.cast &&
