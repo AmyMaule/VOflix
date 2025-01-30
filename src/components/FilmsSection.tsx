@@ -13,6 +13,7 @@ import CinemaSelector from "./CinemaSelector";
 import FilmsContainer from "./FilmsContainer";
 
 const FilmsSection = () => {
+  const [loading, setLoading] = useState(true);
   const [showings, setShowings] = useState<UnsortedFilmType[]>([]);
   const [cinemas, setCinemas] = useState<CinemaType[]>([]);
   const [displayBy, setDisplayBy] = useState<DisplayByType>("cinema");
@@ -26,7 +27,10 @@ const FilmsSection = () => {
     retries = 0
   ) => {
     axios.get<T>(url)
-      .then(res => setData(res.data))
+      .then(res => {
+        setData(res.data);
+        setLoading(false);
+      })
       .catch(err => {
         if (retries < 3) {
           setTimeout(() => {
@@ -50,7 +54,9 @@ const FilmsSection = () => {
     getData(`${baseUrl}/cinemas`, setCinemas);
   }, []);
 
-  if (!showings.length || !cinemas.length) return null;
+  if (loading) {
+    return <div className="films-section" />
+  }
 
   return (
     <div className="films-section">
