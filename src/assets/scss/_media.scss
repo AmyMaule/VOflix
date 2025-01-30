@@ -115,6 +115,11 @@
     white-space: pre-wrap;
   }
 
+  .cinema-selector-error-container {
+    font-size: 0.9rem;
+    white-space: unset;
+  }
+
   .showing-by-cinema-container {
     gap: 0 1rem;
     justify-content: space-evenly;
@@ -246,5 +251,9 @@
 
   .showing-by-cinema-details-container {
     font-size: 0.9rem;
-  } 
+  }
+
+  .cinema-selector-error-container {
+    max-width: 21rem;
+  }
 }

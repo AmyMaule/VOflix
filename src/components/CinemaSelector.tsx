@@ -39,6 +39,15 @@ const CinemaSelector = ({ cinemas, selectedCinemas, setSelectedCinemas }: Cinema
     }
   }
 
+  if (!cinemas.length) {
+    return (
+      <div className="cinema-selector-link-container cinema-selector-error-container">
+        Hmm, something's gone wrong here. Try refreshing the page.
+        {"\n"}If that still doesn't work, <Link to="/contact">Contact us</Link> and we'll look into it!
+      </div>
+    )
+  }
+
   return (
     <>
       <div className="cinema-selector-dropdown" onClick={() => setShowCinemas(prev => !prev)}>
