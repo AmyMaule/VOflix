@@ -33,7 +33,7 @@ const Showing = ({ displayBy, showing }: ShowingProps) => {
       },
       {
         root: null,
-        rootMargin: "0px 0px 10px 0px",
+        rootMargin: "0px 0px 70px 0px",
         threshold: 0
       }
     );
@@ -45,11 +45,9 @@ const Showing = ({ displayBy, showing }: ShowingProps) => {
   }, []);
 
   const renderShowDates = () => {
-    if (displayBy === "cinema") {
-      return renderShowtimes();
-    } else {
-      return (
-        <>
+    return displayBy === "cinema"
+      ? renderShowtimes()
+      : <>
           {Object.keys(showing.dates).map(cinema => {
             return (
               <React.Fragment key={cinema}>
@@ -59,8 +57,6 @@ const Showing = ({ displayBy, showing }: ShowingProps) => {
             )
           })}
         </>
-      )
-    }
   }
 
   const renderShowtimes = (datesContainer: DatesType = showing.dates as DatesType) => {
