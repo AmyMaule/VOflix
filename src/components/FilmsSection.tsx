@@ -16,11 +16,11 @@ const FilmsSection = () => {
   const [loading, setLoading] = useState(true);
   const [showings, setShowings] = useState<UnsortedFilmType[]>([]);
   const [cinemas, setCinemas] = useState<CinemaType[]>([]);
-  const [displayBy, setDisplayBy] = useState<DisplayByType>("cinema");
+  const storedDisplayBy: DisplayByType | null = localStorage.getItem("displayBy") as DisplayByType | null;
+  const [displayBy, setDisplayBy] = useState<DisplayByType>(storedDisplayBy || "cinema");
   const storedSelectedCinemas = localStorage.getItem("selectedCinemas");
   const [selectedCinemas, setSelectedCinemas]  = useState<string[]>(storedSelectedCinemas ? JSON.parse(storedSelectedCinemas) : []);
 
-  // The server can be temperamental if multiple queries are performed too close together
   const getData = <T extends FetchedDataType>(
     url: string, 
     setData: React.Dispatch<React.SetStateAction<T>>,
@@ -32,6 +32,7 @@ const FilmsSection = () => {
         setLoading(false);
       })
       .catch(err => {
+      // The server can be temperamental if multiple queries are performed too close together
         if (retries < 3) {
           setTimeout(() => {
             getData(url, setData, retries + 1);
@@ -42,11 +43,16 @@ const FilmsSection = () => {
       });
   };
 
+  const setAndStoreDisplayBy = (selectedDisplayBy: DisplayByType) => {
+    setDisplayBy(selectedDisplayBy);
+    localStorage.setItem("displayBy", selectedDisplayBy);
+  }
+
   useEffect(() => {
     if (selectedCinemas.length) return;
     const cinemaTowns = getCinemaTowns(cinemas);
     setSelectedCinemas(cinemaTowns);
-  }, [cinemas]);
+  }, [cinemas, selectedCinemas.length]);
   
   useEffect(() => {
     const baseUrl = import.meta.env.VITE_BASEURL;
@@ -67,13 +73,13 @@ const FilmsSection = () => {
           <div className="btn-films-display-by-container">
             <button
               className={`btn btn-films-display-by ${displayBy === "cinema" ? "btn-films-display-by-current" : ""}`}
-              onClick={() => setDisplayBy("cinema")}
+              onClick={() => setAndStoreDisplayBy("cinema")}
             >
               <span>Cinema</span>
             </button>
             <button
               className={`btn btn-films-display-by ${displayBy === "cinema" ? "" : "btn-films-display-by-current"}`}
-              onClick={() => setDisplayBy("film")}
+              onClick={() => setAndStoreDisplayBy("film")}
             >
               <span>Film</span>
             </button>
