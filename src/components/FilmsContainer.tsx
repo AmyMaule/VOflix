@@ -4,102 +4,80 @@ import ShowingsByCinema from "./ShowingsByCinema";
 import ShowingsByFilm from "./ShowingsByFilm";
 
 import { 
+  CinemaType,
   DisplayByType,
-  TimeSortedShowingsByCinemaType,
-  TimeSortedShowingsByFilmType,
-  UnsortedFilmType 
+  FilmType,
+  RawShowingType,
+  SortedShowingType
 } from "../types";
 
 type FilmsContainerProps = {
-  displayBy: DisplayByType,
-  selectedCinemas: string[],
-  showings: UnsortedFilmType[]
+  allFilmData: Record<string, FilmType>
+  cinemas: Record<string, CinemaType>
+  displayBy: DisplayByType
+  errors: Record<string, boolean>
+  selectedCinemas: string[]
+  showings: RawShowingType[]
 }
 
-const FilmsContainer = ({ displayBy, selectedCinemas, showings }: FilmsContainerProps) => {
-  const [timeSortedShowingsByCinema, setTimeSortedShowingsByCinema] = useState<TimeSortedShowingsByCinemaType>({});
-  const [timeSortedShowingsByFilm, setTimeSortedShowingsByFilm] = useState<TimeSortedShowingsByFilmType>({});
+const FilmsContainer = ({ allFilmData, cinemas, displayBy, errors, selectedCinemas, showings }: FilmsContainerProps) => {
+  const [timeSortedShowingsByCinema, setTimeSortedShowingsByCinema] = useState<Record<string, SortedShowingType>>({});
+  const [timeSortedShowingsByFilm, setTimeSortedShowingsByFilm] = useState<Record<string, SortedShowingType>>({});
 
-  // normalize showing data so that they are date and time sorted
-  useEffect(() => {
-    if (!showings.length && !Object.keys(timeSortedShowingsByCinema).length) return;
-
-    // Create normalized data sorted by cinema, and by film
-    const showingTimesByCinema: TimeSortedShowingsByCinemaType = {};
-    const showingTimesByFilm: TimeSortedShowingsByFilmType = {};
-
-    showings.forEach(showing => {
-      if (!selectedCinemas.includes(showing.cinema_town)) return;
-      const { cinema_name, cinema_town, original_title, start_time: { date: showingDate, time, year } } = showing;
-      const date = `${showingDate} ${year}`;
-      const cinema = `${cinema_name}, ${cinema_town}`;
-
-      // add cinema to showingTimesByCinema
-      if (!showingTimesByCinema?.[cinema_name]) {
-        showingTimesByCinema[cinema_name] = {};
-      }
-      
-      // add film to cinema
-      if (showingTimesByCinema[cinema_name]?.[original_title]) {
-        if (showingTimesByCinema[cinema_name][original_title]?.dates[date]) {
-          showingTimesByCinema[cinema_name][original_title].dates[date].push(time);
-        } else {
-          showingTimesByCinema[cinema_name][original_title].dates[date] = [time];
-        }
-
-      } else {
-        showingTimesByCinema[cinema_name][original_title] = {
-          ...showing,
-          dates: { [date]: [time] }
-        }
-      }
-
-      // Now create normalized data for displaying by film
-      // Add all necessary info about the film except start_time
-      const { start_time, ...restOfShowing } = showing;    
-      if (!showingTimesByFilm[original_title]) {
-        showingTimesByFilm[original_title] = {
-          ...restOfShowing,
-          dates: {
-            [cinema]: {
-              [date]: [time]
-            }
-          }
-        }
-      } else if (showingTimesByFilm[original_title].dates?.[cinema]?.[date]) {
-        showingTimesByFilm[original_title].dates[cinema][date].push(time);
-      // If cinema exists, but not date
-      } else if (showingTimesByFilm[original_title].dates?.[cinema]) {
-        showingTimesByFilm[original_title].dates[cinema][date] = [time];
-      // If no cinema exists
-      } else if (!showingTimesByFilm[original_title].dates?.[cinema]) {
-        showingTimesByFilm[original_title].dates[cinema] = {
-          [date]: [time]
-        };
-      }
-    })
-    setTimeSortedShowingsByCinema(showingTimesByCinema);
-    setTimeSortedShowingsByFilm(showingTimesByFilm);
-  }, [selectedCinemas, showings]);
-
-  if (!showings.length || !selectedCinemas.length) {
+  const renderUserError = (message:string) => {
     return (
-      <div className="no-showings-found">
-        No showings match your search criteria.{"\n"}
-        Try searching a broader range of cinemas.
-      </div>
+      <div className="no-showings-found">{message}</div>
     )
   }
 
-  if (!Object.keys(timeSortedShowingsByCinema).length) {
-    return null;
+  useEffect(() => {
+    if (!showings.length) return;
+    
+    const showingTimesByFilm: Record<string, SortedShowingType> = {};
+    const showingTimesByCinema: Record<string, SortedShowingType> = {};
+
+    // Sorted showings by film/cinema have the same structure with film/cinema reversed so field1/2 are the title and cinema
+    const getTimeSortedShowings = (showing: RawShowingType, varToUpdate: Record<string, SortedShowingType>, field1: string, field2: string) => {
+      const { start_time } = showing;
+      const showingDate = `${start_time.date} ${start_time.year}`;
+      varToUpdate[field1] ??= {};
+      varToUpdate[field1][field2] ??= {};
+      varToUpdate[field1][field2][showingDate] ??= [];
+      varToUpdate[field1][field2][showingDate].push(start_time.time);
+    }
+
+    showings.forEach(showing => {
+      // Ensure user only sees showings from towns they have selected
+      if (!selectedCinemas.includes(cinemas[showing.cinema].town)) return;
+
+      const { cinema, original_title } = showing;  
+      getTimeSortedShowings(showing, showingTimesByFilm, original_title, cinema);
+      getTimeSortedShowings(showing, showingTimesByCinema, cinema, original_title);
+    });
+    setTimeSortedShowingsByCinema(showingTimesByCinema);
+    setTimeSortedShowingsByFilm(showingTimesByFilm);
+  }, [cinemas, selectedCinemas, showings]);
+  
+  if (errors.cinemaSelection) {
+    return renderUserError("At least one cinema must be selected!");
+  }
+
+  if (!Object.keys(timeSortedShowingsByFilm).length || !selectedCinemas.length) {
+    return renderUserError("No showings match your search criteria.\nTry searching a broader range of cinemas.");
   }
 
   return (
     <>
       {displayBy === "cinema"
-        ? <ShowingsByCinema timeSortedShowingsByCinema={timeSortedShowingsByCinema} />
-        : <ShowingsByFilm timeSortedShowingsByFilm={timeSortedShowingsByFilm} />     
+        ? <ShowingsByCinema
+            allFilmData={allFilmData}
+            cinemas={cinemas}
+            timeSortedShowingsByCinema={timeSortedShowingsByCinema} 
+          />
+        : <ShowingsByFilm
+            allFilmData={allFilmData}
+            timeSortedShowingsByFilm={timeSortedShowingsByFilm}
+          />
       }
     </>
   )

@@ -1,45 +1,4 @@
-export type DatesType = {
-  [date: string]: string[];
-}
-
-export interface FilmType {
-  cast?: string,
-  cinema_id: string,
-  // cinema_address: string,
-  cinema_name: string,
-  cinema_town: string,
-  // french_title: string,
-  genres: string,
-  imdb_url: string,
-  // languages: string,
-  // origin_country: string,
-  original_title: string,
-  poster_lo_res: string,
-  poster_hi_res: string,
-  rating?: number,
-  release_date: string,
-  runtime: number,
-  synopsis: string,
-  // tagline: string,
-}
-
-export interface UnsortedFilmType extends FilmType {
-  start_time: {
-    date: string,
-    time: string,
-    year: string
-  }
-}
-
-export interface FilmSortedByCinemaType extends FilmType {
-  dates: DatesType;
-}
-
-export interface FilmSortedByFilmType extends FilmType {
-  dates: {
-    [cinema: string]: DatesType;
-  };
-}
+export type DisplayByType = "cinema" | "film";
 
 export interface CinemaType {
   name: string,
@@ -49,16 +8,36 @@ export interface CinemaType {
   gps_coordinates: number[]
 }
 
-export type FetchedDataType = UnsortedFilmType[] | CinemaType[];
+export interface FilmType {
+  cast: string,
+  genres: string,
+  imdb_url: string,
+  poster_lo_res: string | undefined,
+  poster_hi_res: string | undefined,
+  release_date: string | null,
+  runtime: number | null,
+  synopsis: string,
+  rating_imdb: number | null,
+  rating_rt: number | null,
+  rating_meta: number | null,
+}
 
-export type DisplayByType = "cinema" | "film";
-
-export type TimeSortedShowingsByCinemaType = {
-  [cinema_name: string]: {
-    [film_title: string]: FilmSortedByCinemaType;
+export interface RawShowingType {
+  cinema: string,
+  original_title: string,
+  start_time: {
+    time: string,
+    date: string,
+    year: string
   }
-};
+}
 
-export type TimeSortedShowingsByFilmType = {
-  [film_title: string]: FilmSortedByFilmType
-};
+export interface SortedShowingType {
+  [cinema: string]: {
+    [date: string]: string[]
+  }
+}
+
+export type DatesType = {
+  [date: string]: string[];
+}
