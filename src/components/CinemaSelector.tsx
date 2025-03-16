@@ -6,12 +6,13 @@ import { getCinemaTowns } from "../utilities";
 import { CinemaType } from "../types";
 
 type CinemaSelectorProps = {
-  cinemas: CinemaType[],
+  cinemas: Record<string, CinemaType>,
   selectedCinemas: string[],
+  setErrors: React.Dispatch<React.SetStateAction<Record<string, boolean>>>,
   setSelectedCinemas: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const CinemaSelector = ({ cinemas, selectedCinemas, setSelectedCinemas }: CinemaSelectorProps) => {
+const CinemaSelector = ({ cinemas, selectedCinemas, setErrors, setSelectedCinemas }: CinemaSelectorProps) => {
   const [showCinemas, setShowCinemas]  = useState(true);
   const cinemaListRef = useRef<HTMLUListElement>(null);
   const cinemaTowns = getCinemaTowns(cinemas);
@@ -20,6 +21,9 @@ const CinemaSelector = ({ cinemas, selectedCinemas, setSelectedCinemas }: Cinema
 
   const handleDeselect = () => {
     if (cinemaListRef.current) {
+      setErrors({
+        cinemaSelection: false
+      });
       const cinemas = [...cinemaListRef.current.querySelectorAll<HTMLInputElement>(".cinema-selector-input")];
       const allSelected = cinemas.every(cinema => cinema.checked);
       cinemas.forEach(cinema => cinema.checked = !allSelected);
@@ -30,16 +34,25 @@ const CinemaSelector = ({ cinemas, selectedCinemas, setSelectedCinemas }: Cinema
     if (cinemaListRef.current) {
       const cinemas = [...cinemaListRef.current.querySelectorAll<HTMLInputElement>(".cinema-selector-input")];
       const currentlySelected = cinemas
-        .filter(cinema => cinema.checked)
-        .map(cinema => cinema.id);
-
+      .filter(cinema => cinema.checked)
+      .map(cinema => cinema.id);
+      
+      if (!currentlySelected.length) {
+        setErrors({
+          cinemaSelection: true
+        });
+        return;
+      }
       // Add currentlySelected to local storage for retrieval on next visit
       localStorage.setItem("selectedCinemas", JSON.stringify(currentlySelected));
       setSelectedCinemas(currentlySelected);
+      setErrors({
+        cinemaSelection: false
+      });
     }
   }
 
-  if (!cinemas.length) {
+  if (!Object.keys(cinemas).length) {
     return (
       <div className="cinema-selector-link-container cinema-selector-error-container">
         Hmm, something's gone wrong here. Try refreshing the page.
