@@ -1,18 +1,25 @@
-import { TimeSortedShowingsByFilmType } from "../types";
+import { FilmType, SortedShowingType } from "../types";
+
 import Showing from "./Showing";
 
 type ShowingsByFilmProps = {
-  timeSortedShowingsByFilm: TimeSortedShowingsByFilmType
+  allFilmData: Record<string, FilmType>
+  timeSortedShowingsByFilm: Record<string, SortedShowingType>
 }
 
-const ShowingsByFilm = ({ timeSortedShowingsByFilm }: ShowingsByFilmProps) => {
+const ShowingsByFilm = ({ allFilmData, timeSortedShowingsByFilm }: ShowingsByFilmProps) => {
   return (
     <>
       {Object.keys(timeSortedShowingsByFilm).map(filmTitle => {
-        const showing = timeSortedShowingsByFilm[filmTitle];
+        const filmData = allFilmData[filmTitle];
         return (
           <div className="showings-by-cinema-container" key={filmTitle}>
-            <Showing showing={showing} displayBy="film" />
+            <Showing
+              displayBy="film"
+              filmData={filmData}
+              filmTitle={filmTitle}
+              showing={timeSortedShowingsByFilm[filmTitle]}
+            />
           </div>
         )
       })}
