@@ -19,6 +19,7 @@ type FilmsContainerProps = {
 const FilmsContainer = ({ displayBy, selectedCinemas, showings }: FilmsContainerProps) => {
   const [timeSortedShowingsByCinema, setTimeSortedShowingsByCinema] = useState<TimeSortedShowingsByCinemaType>({});
   const [timeSortedShowingsByFilm, setTimeSortedShowingsByFilm] = useState<TimeSortedShowingsByFilmType>({});
+  const hiddenFilms = JSON.parse(import.meta.env.VITE_HIDDEN_FILMS);
 
   // normalize showing data so that they are date and time sorted
   useEffect(() => {
@@ -29,7 +30,7 @@ const FilmsContainer = ({ displayBy, selectedCinemas, showings }: FilmsContainer
     const showingTimesByFilm: TimeSortedShowingsByFilmType = {};
 
     showings.forEach(showing => {
-      if (!selectedCinemas.includes(showing.cinema_town)) return;
+      if (hiddenFilms.includes(showing.original_title) || !selectedCinemas.includes(showing.cinema_town)) return;
       const { cinema_name, cinema_town, original_title, start_time: { date: showingDate, time, year } } = showing;
       const date = `${showingDate} ${year}`;
       const cinema = `${cinema_name}, ${cinema_town}`;
