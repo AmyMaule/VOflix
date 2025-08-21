@@ -17,7 +17,7 @@ type ShowingProps = {
 const Showing = ({ displayBy, showing }: ShowingProps) => {
   const showingRef = useRef<HTMLDivElement>(null);
   const releaseYear = showing.release_date.slice(0, 4);
-  const trailerURL = `${showing.original_title.split(" ").join("+")}+${releaseYear}+trailer`;
+  const trailerURL = `${encodeURIComponent(showing.original_title).split(" ").join("+")}+${releaseYear}+trailer`;
   
   useEffect(() => {
     const activeRef = showingRef.current;
