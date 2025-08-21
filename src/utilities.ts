@@ -12,6 +12,6 @@ export const renderError = (err: unknown) => {
 }
 
 // Get unique cinema towns
-export const getCinemaTowns = (cinemas: CinemaType[]) => {
-  return [... new Set(cinemas.map(cinema => cinema.town))];
+export const getCinemaTowns = (cinemas: Record<string, CinemaType>) => {
+  return [... new Set(Object.values(cinemas).map(cinema => cinema.town))];
 }

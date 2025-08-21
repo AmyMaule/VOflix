@@ -1,38 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
 import { getCinemaTowns, renderError } from "../utilities";
 import { 
   CinemaType,
-  FetchedDataType,
   DisplayByType,
-  UnsortedFilmType 
+  FilmType,
+  RawShowingType, 
 } from "../types";
 
 import CinemaSelector from "./CinemaSelector";
 import FilmsContainer from "./FilmsContainer";
 
 const FilmsSection = () => {
-  const [loading, setLoading] = useState(true);
-  const [showings, setShowings] = useState<UnsortedFilmType[]>([]);
-  const [cinemas, setCinemas] = useState<CinemaType[]>([]);
+  const [errors, setErrors] = useState<Record<string, boolean>>({});
+  const [allFilmData, setallFilmData] = useState<Record<string, FilmType>>({});
+  const [showings, setShowings] = useState<RawShowingType[]>([]);
+  const [cinemas, setCinemas] = useState<Record<string, CinemaType>>({});
   const storedDisplayBy: DisplayByType | null = localStorage.getItem("displayBy") as DisplayByType | null;
   const [displayBy, setDisplayBy] = useState<DisplayByType>(storedDisplayBy || "cinema");
   const storedSelectedCinemas = localStorage.getItem("selectedCinemas");
   const [selectedCinemas, setSelectedCinemas]  = useState<string[]>(storedSelectedCinemas ? JSON.parse(storedSelectedCinemas) : []);
 
-  const getData = <T extends FetchedDataType>(
+  const getData = useCallback(<T,>(
     url: string, 
     setData: React.Dispatch<React.SetStateAction<T>>,
     retries = 0
   ) => {
     axios.get<T>(url)
-      .then(res => {
-        setData(res.data);
-        setLoading(false);
-      })
+      .then(res => setData(res.data))
       .catch(err => {
-      // The server can be temperamental if multiple queries are performed too close together
+        // The server can be temperamental if multiple queries are performed too close together
         if (retries < 3) {
           setTimeout(() => {
             getData(url, setData, retries + 1);
@@ -41,8 +39,8 @@ const FilmsSection = () => {
           renderError(err);
         }
       });
-  };
-
+  }, []);
+  
   const setAndStoreDisplayBy = (selectedDisplayBy: DisplayByType) => {
     setDisplayBy(selectedDisplayBy);
     localStorage.setItem("displayBy", selectedDisplayBy);
@@ -52,15 +50,17 @@ const FilmsSection = () => {
     if (selectedCinemas.length) return;
     const cinemaTowns = getCinemaTowns(cinemas);
     setSelectedCinemas(cinemaTowns);
-  }, [cinemas, selectedCinemas.length]);
+  }, [cinemas, selectedCinemas]);
   
   useEffect(() => {
-    const baseUrl = import.meta.env.VITE_BASEURL;
-    getData(`${baseUrl}/search`, setShowings);
-    getData(`${baseUrl}/cinemas`, setCinemas);
-  }, []);
+    const baseUrl = import.meta.env.VITE_TEMP_BASEURL;
+    getData<Record<string, FilmType>>(`${baseUrl}/search/movies`, setallFilmData);
+    getData<RawShowingType[]>(`${baseUrl}/search/showings`, setShowings);
+    getData<Record<string, CinemaType>>(`${baseUrl}/cinemas`, setCinemas);
+  }, [getData]);
 
-  if (loading) {
+
+  if (!showings.length || !Object.keys(allFilmData).length || !Object.keys(cinemas).length) {
     return <div className="films-section" />
   }
 
@@ -86,11 +86,19 @@ const FilmsSection = () => {
           </div>
           <CinemaSelector
             cinemas={cinemas}
+            setErrors={setErrors}
             selectedCinemas={selectedCinemas}
             setSelectedCinemas={setSelectedCinemas}
           />
         </div>
-        <FilmsContainer displayBy={displayBy} showings={showings} selectedCinemas={selectedCinemas} />
+        <FilmsContainer
+          allFilmData={allFilmData}
+          cinemas={cinemas}
+          displayBy={displayBy} 
+          errors={errors}
+          showings={showings}
+          selectedCinemas={selectedCinemas}
+        />
       </div>
     </div>
   )

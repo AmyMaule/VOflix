@@ -1,15 +1,13 @@
-import { DatesType } from "../types";
-
 import {
-  FilmSortedByCinemaType,
-  FilmSortedByFilmType
+  DatesType,
+  SortedShowingType
 } from "../types";
 
 type ShowtimesProps = {
   columnNumber: number,
   dates: string[],
   datesContainer: DatesType,
-  showing: FilmSortedByCinemaType | FilmSortedByFilmType
+  showing: SortedShowingType
 }
 
 const Showtimes = ({ columnNumber, dates, datesContainer, showing }: ShowtimesProps) => {

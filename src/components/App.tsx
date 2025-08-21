@@ -1,6 +1,9 @@
 import FilmsSection from "./FilmsSection";
 import Hero from "./Hero";
 
+// TODO - if user de-selects all cinemas, show error message that they must select at least one after they hit search
+// TODO: get generic film poster in case there isn't one, change poster types to only be strings
+
 const App = () => {
   return (
     <div className="app-container">
