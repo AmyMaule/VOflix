@@ -1,25 +1,20 @@
 import { DatesType } from "../types";
 
-import {
-  FilmSortedByCinemaType,
-  FilmSortedByFilmType
-} from "../types";
-
 type ShowtimesProps = {
+  cinema: string,
   columnNumber: number,
   dates: string[],
   datesContainer: DatesType,
-  showing: FilmSortedByCinemaType | FilmSortedByFilmType
 }
 
-const Showtimes = ({ columnNumber, dates, datesContainer, showing }: ShowtimesProps) => {
+const Showtimes = ({ cinema, columnNumber, dates, datesContainer }: ShowtimesProps) => {
   const getShowingLink = (date: string) => {
     const showingDate = new Date(date);
     const day = (showingDate.getDate()).toString().padStart(2, "0");
     const month = (showingDate.getMonth() + 1).toString().padStart(2, "0");
     const year = showingDate.getFullYear();
     const showingDateString = `${year}-${month}-${day}`;
-    return `https://www.allocine.fr/seance/salle_gen_csalle=${showing.cinema_id}.html#shwt_date=${showingDateString}`;
+    return `https://www.allocine.fr/seance/salle_gen_csalle=${cinema}.html#shwt_date=${showingDateString}`;
   }
 
   // Ensure columns have a consistent width whether they have 1, 2, or 3 showings per date
@@ -40,7 +35,6 @@ const Showtimes = ({ columnNumber, dates, datesContainer, showing }: ShowtimesPr
   return (
     <div className="showing-show-times-column" style={{marginRight: setMargin()}}>
       {dates.map(date => {
-        const showingLink = getShowingLink(date);
         const splitDate = date.split(" ");
         const parsedDate = `${parseInt(splitDate[0], 10)} ${splitDate[1]}`;
         
@@ -49,6 +43,7 @@ const Showtimes = ({ columnNumber, dates, datesContainer, showing }: ShowtimesPr
             <div className="showing-show-time-date">{parsedDate}</div>
             <div className="showing-show-times">
               {datesContainer[date].map(time => {
+                const showingLink = getShowingLink(date);
                 return (
                   <a
                     className="showing-show-time"

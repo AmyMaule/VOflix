@@ -1,23 +1,28 @@
 import React, { useRef, useEffect } from "react";
 
-import { 
+import {
+  CinemaType,
   DatesType,
   DisplayByType,
-  FilmSortedByFilmType,
-  FilmSortedByCinemaType
+  FilmType,
+  SortedShowingType
 } from "../types";
 
 import Showtimes from "./Showtimes";
 
 type ShowingProps = {
+  cinemas?: Record<string, CinemaType>
+  cinemaId?: string,
   displayBy: DisplayByType
-  showing: FilmSortedByCinemaType | FilmSortedByFilmType
+  filmData: FilmType
+  showing: SortedShowingType
+  filmTitle: string
 }
 
-const Showing = ({ displayBy, showing }: ShowingProps) => {
+const Showing = ({ cinemas, cinemaId, displayBy, filmData, showing, filmTitle }: ShowingProps) => { 
   const showingRef = useRef<HTMLDivElement>(null);
-  const releaseYear = showing.release_date.slice(0, 4);
-  const trailerURL = `${encodeURIComponent(showing.original_title).split(" ").join("+")}+${releaseYear}+trailer`;
+  const releaseYear = filmData.release_date?.slice(0, 4) || "";
+  const trailerURL = `${filmTitle.split(" ").join("+")}+${releaseYear}+trailer`;
   
   useEffect(() => {
     const activeRef = showingRef.current;
@@ -45,50 +50,53 @@ const Showing = ({ displayBy, showing }: ShowingProps) => {
   }, []);
 
   const renderShowDates = () => {
+    console.log(showing, "??")
     return displayBy === "cinema"
-      ? renderShowtimes()
+      ? renderShowtimes(showing[filmTitle], "")
       : <>
-          {Object.keys(showing.dates).map(cinema => {
-            return (
-              <React.Fragment key={cinema}>
-                <h6 className="showing-show-times-cinema">{cinema}</h6>
-                {renderShowtimes(showing.dates[cinema] as DatesType)}
-              </React.Fragment>
-            )
-          })}
+          {
+            Object.keys(showing).map(cinema => {
+              // console.log(cinemas[cinema])
+              const cinemaNameDisplay = cinema.split(",").map(word => word.trim()).join(", ");
+              return (
+                <React.Fragment key={cinema}>
+                  <h6 className="showing-show-times-cinema">{cinemaNameDisplay}</h6>
+                  {renderShowtimes(showing[cinema], cinema)}
+                </React.Fragment>
+              )
+            })
+          }
         </>
   }
 
-  const renderShowtimes = (datesContainer: DatesType = showing.dates as DatesType) => {
-    const dates = Object.keys(datesContainer);
+  const renderShowtimes = (showingTimes: DatesType, cinema: string) => {
+    const dates = Object.keys(showingTimes);
     const halfLength = Math.ceil(dates.length / 2);
-    const maxShowtimes = Math.max(...Object.values(showing.dates).map(arr => arr.length));
+    const maxShowtimes = Math.max(...Object.values(showingTimes).map(arr => arr.length));
 
     // if there are >2 dates for a showing, break them into 2 columns
     // unless there are >4 showtimes for one date or the screen is <1150px wide
     const columns = (dates.length <=2 || maxShowtimes > 4 || (window.innerWidth < 1150 && window.innerWidth > 830)) && maxShowtimes > 1
       ? [dates]
       : [dates.slice(0, halfLength), dates.slice(halfLength)]
-    
+
     return columns.map((column, i) => (
       <Showtimes
+        cinema={cinemaId || cinemas![cinema].cinema_id}
         columnNumber={i}
         dates={column}
-        datesContainer={datesContainer}
-        showing={showing}
+        datesContainer={showingTimes}
         key={i}
       />
      )
     )
   }
 
-  if (!showing.dates || !Object.keys(showing.dates).length) {
-    return null;
-  }
+  if (!showing) return null;
 
   return (
     <div className="showing-by-cinema-container" ref={showingRef}>
-      <h4 className="showing-by-cinema-title showing-by-cinema-title-mobile">{showing.original_title}</h4>
+      <h4 className="showing-by-cinema-title showing-by-cinema-title-mobile">{filmTitle}</h4>
       <a 
         className="showing-by-cinema-poster-container"
         href={`https://www.youtube.com/results?search_query=${trailerURL}`}
@@ -99,38 +107,40 @@ const Showing = ({ displayBy, showing }: ShowingProps) => {
           <i className="fa-regular fa-circle-play showing-by-cinema-trailer-play-btn" />
           <div className="showing-by-cinema-trailer-link">Watch trailer</div>
         </div>
-        <img src={showing.poster_hi_res} className="showing-by-cinema-poster" />
+        <img src={filmData.poster_hi_res} className="showing-by-cinema-poster" />
       </a>
       <div className="showing-by-cinema-text-container-mobile">
         <div className="showing-by-cinema-details-container">
-          <div className="showing-by-cinema-release">
-            <i className="fa-regular fa-calendar" />
-            {releaseYear}
-          </div>
+          {releaseYear &&
+            <div className="showing-by-cinema-release">
+              <i className="fa-regular fa-calendar" />
+              {releaseYear}
+            </div>
+          }
           <div className="showing-by-cinema-runtime-container">
             <i className="fa-regular fa-clock" />
-            {showing.runtime} mins
+            {filmData.runtime} mins
           </div>
-          {showing.rating &&
+          {filmData.rating_imdb &&
             <a
               className="showing-by-cinema-rating-container"
-              href={showing.imdb_url}
+              href={filmData.imdb_url}
               target="_blank"
               rel="noreferrer"
             >
               <img src="imdb-logo.png" className="imdb-logo" />
-              <div className="imdb-rating">{showing.rating.toFixed(1)}</div>
+              <div className="imdb-rating">{filmData.rating_imdb}</div>
             </a>
           }
         </div>
       </div>
       <div className="showing-by-cinema-optional-text-container">
-      <p className="showing-by-cinema-description">{showing.synopsis}</p>
-        {showing.cast &&
+      <p className="showing-by-cinema-description">{filmData.synopsis}</p>
+        {filmData.cast &&
           <div className="showing-by-cinema-cast-container">
             <i className="fa fa-solid fa-user-group showing-by-cinema-cast-icon" />
             <div className="showing-by-cinema-cast">
-              {showing.cast.split(",").map((castMember, i, arr) => (
+              {filmData.cast.split(",").map((castMember, i, arr) => (
                 <span key={castMember}>
                   {castMember}{i < arr.length - 1 && ","}
                 </span>
@@ -140,37 +150,39 @@ const Showing = ({ displayBy, showing }: ShowingProps) => {
         }
       </div>
       <div className="showing-by-cinema-text-container">
-        <h4 className="showing-by-cinema-title">{showing.original_title}</h4>
-        <div className="showing-by-cinema-genres">{showing.genres.split(",").join(", ")}</div>
+        <h4 className="showing-by-cinema-title">{filmTitle}</h4>
+        <div className="showing-by-cinema-genres">{filmData.genres.split(",").join(", ")}</div>
         <div className="showing-by-cinema-details-container">
-          <div className="showing-by-cinema-release">
-            <i className="fa-regular fa-calendar" />
-            {releaseYear}
-          </div>
-          {showing.rating &&
+          {releaseYear &&
+            <div className="showing-by-cinema-release">
+              <i className="fa-regular fa-calendar" />
+              {releaseYear}
+            </div>
+          }
+          {filmData.rating_imdb &&
             <a
               className="showing-by-cinema-rating-container"
-              href={showing.imdb_url}
+              href={filmData.imdb_url}
               target="_blank"
               rel="noreferrer"
             >
               <img src="imdb-logo.png" className="imdb-logo" />
-              <div className="imdb-rating">{showing.rating.toFixed(1)}</div>
+              <div className="imdb-rating">{filmData.rating_imdb}</div>
             </a>
           }
-          {showing.runtime &&
+          {filmData.runtime &&
             <div className="showing-by-cinema-runtime-container">
               <i className="fa-regular fa-clock" />
-              {showing.runtime} minutes
+              {filmData.runtime} minutes
             </div>
           }
         </div>
-        <p className="showing-by-cinema-description">{showing.synopsis}</p>
-        {showing.cast &&
+        <p className="showing-by-cinema-description">{filmData.synopsis}</p>
+        {filmData.cast &&
           <div className="showing-by-cinema-cast-container">
             <i className="fa fa-solid fa-user-group showing-by-cinema-cast-icon" />
             <div className="showing-by-cinema-cast">
-              {showing.cast.split(",").map((castMember, i, arr) => (
+              {filmData.cast.split(",").map((castMember, i, arr) => (
                 <span key={castMember}>
                   {castMember}{i < arr.length - 1 && ","}
                 </span>
