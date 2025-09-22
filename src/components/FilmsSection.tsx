@@ -53,12 +53,11 @@ const FilmsSection = () => {
   }, [cinemas, selectedCinemas]);
   
   useEffect(() => {
-    const baseUrl = import.meta.env.VITE_TEMP_BASEURL;
+    const baseUrl = import.meta.env.VITE_BASEURL;
     getData<Record<string, FilmType>>(`${baseUrl}/search/movies`, setallFilmData);
     getData<RawShowingType[]>(`${baseUrl}/search/showings`, setShowings);
     getData<Record<string, CinemaType>>(`${baseUrl}/cinemas`, setCinemas);
   }, [getData]);
-
 
   if (!showings.length || !Object.keys(allFilmData).length || !Object.keys(cinemas).length) {
     return <div className="films-section" />

@@ -76,6 +76,7 @@ const FilmsContainer = ({ allFilmData, cinemas, displayBy, errors, selectedCinem
           />
         : <ShowingsByFilm
             allFilmData={allFilmData}
+            cinemas={cinemas}
             timeSortedShowingsByFilm={timeSortedShowingsByFilm}
           />
       }

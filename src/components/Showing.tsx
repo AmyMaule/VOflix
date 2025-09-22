@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 
 import {
+  CinemaType,
   DatesType,
   DisplayByType,
   FilmType,
@@ -10,13 +11,15 @@ import {
 import Showtimes from "./Showtimes";
 
 type ShowingProps = {
+  cinemas?: Record<string, CinemaType>
+  cinemaId?: string,
   displayBy: DisplayByType
   filmData: FilmType
   showing: SortedShowingType
   filmTitle: string
 }
 
-const Showing = ({ displayBy, filmData, showing, filmTitle }: ShowingProps) => { 
+const Showing = ({ cinemas, cinemaId, displayBy, filmData, showing, filmTitle }: ShowingProps) => { 
   const showingRef = useRef<HTMLDivElement>(null);
   const releaseYear = filmData.release_date?.slice(0, 4) || "";
   const trailerURL = `${filmTitle.split(" ").join("+")}+${releaseYear}+trailer`;
@@ -47,16 +50,18 @@ const Showing = ({ displayBy, filmData, showing, filmTitle }: ShowingProps) => {
   }, []);
 
   const renderShowDates = () => {
+    console.log(showing, "??")
     return displayBy === "cinema"
-      ? renderShowtimes(showing[filmTitle])
+      ? renderShowtimes(showing[filmTitle], "")
       : <>
           {
             Object.keys(showing).map(cinema => {
+              // console.log(cinemas[cinema])
               const cinemaNameDisplay = cinema.split(",").map(word => word.trim()).join(", ");
               return (
                 <React.Fragment key={cinema}>
                   <h6 className="showing-show-times-cinema">{cinemaNameDisplay}</h6>
-                  {renderShowtimes(showing[cinema])}
+                  {renderShowtimes(showing[cinema], cinema)}
                 </React.Fragment>
               )
             })
@@ -64,7 +69,7 @@ const Showing = ({ displayBy, filmData, showing, filmTitle }: ShowingProps) => {
         </>
   }
 
-  const renderShowtimes = (showingTimes: DatesType) => {
+  const renderShowtimes = (showingTimes: DatesType, cinema: string) => {
     const dates = Object.keys(showingTimes);
     const halfLength = Math.ceil(dates.length / 2);
     const maxShowtimes = Math.max(...Object.values(showingTimes).map(arr => arr.length));
@@ -74,13 +79,13 @@ const Showing = ({ displayBy, filmData, showing, filmTitle }: ShowingProps) => {
     const columns = (dates.length <=2 || maxShowtimes > 4 || (window.innerWidth < 1150 && window.innerWidth > 830)) && maxShowtimes > 1
       ? [dates]
       : [dates.slice(0, halfLength), dates.slice(halfLength)]
-    
+
     return columns.map((column, i) => (
       <Showtimes
+        cinema={cinemaId || cinemas![cinema].cinema_id}
         columnNumber={i}
         dates={column}
         datesContainer={showingTimes}
-        showing={showing}
         key={i}
       />
      )

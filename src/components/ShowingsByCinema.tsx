@@ -16,7 +16,6 @@ const ShowingsByCinema = ({ allFilmData, cinemas, timeSortedShowingsByCinema }: 
   return (
     <>
       {Object.keys(timeSortedShowingsByCinema).map(cinema => {
-        console.log(cinema)
         const { name: cinemaName, town: cinemaTown } = cinemas[cinema];
         const films = Object.keys(timeSortedShowingsByCinema[cinema]);
 
@@ -27,12 +26,14 @@ const ShowingsByCinema = ({ allFilmData, cinemas, timeSortedShowingsByCinema }: 
               <h6 className="showings-by-cinema-subtitle">{cinemaTown}</h6>
             </div>
             {films.map(filmTitle => {
+              console.log(cinemas[cinema])
               const filmData = allFilmData[filmTitle];
               const showing = {
                 [filmTitle]: timeSortedShowingsByCinema[cinema][filmTitle]
               }
               return (
                 <Showing
+                  cinemaId={cinemas[cinema].cinema_id}
                   displayBy="cinema"
                   filmData={filmData}
                   filmTitle={filmTitle}

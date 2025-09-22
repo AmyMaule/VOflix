@@ -5,6 +5,7 @@ export interface CinemaType {
   town: string,
   additional_info: null,
   address: string,
+  cinema_id: string,
   gps_coordinates: number[]
 }
 
