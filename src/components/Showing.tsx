@@ -129,7 +129,7 @@ const Showing = ({ cinemas, cinemaId, displayBy, filmData, showing, filmTitle }:
               rel="noreferrer"
             >
               <img src="imdb-logo.png" className="imdb-logo" />
-              <div className="imdb-rating">{filmData.rating_imdb}</div>
+              <div className="imdb-rating">{filmData.rating_imdb.toFixed(1)}</div>
             </a>
           }
         </div>
@@ -167,7 +167,7 @@ const Showing = ({ cinemas, cinemaId, displayBy, filmData, showing, filmTitle }:
               rel="noreferrer"
             >
               <img src="imdb-logo.png" className="imdb-logo" />
-              <div className="imdb-rating">{filmData.rating_imdb}</div>
+              <div className="imdb-rating">{filmData.rating_imdb.toFixed(1)}</div>
             </a>
           }
           {filmData.runtime &&
