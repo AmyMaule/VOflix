@@ -23,6 +23,8 @@ type FilmsContainerProps = {
 const FilmsContainer = ({ allFilmData, cinemas, displayBy, errors, selectedCinemas, showings }: FilmsContainerProps) => {
   const [timeSortedShowingsByCinema, setTimeSortedShowingsByCinema] = useState<Record<string, SortedShowingType>>({});
   const [timeSortedShowingsByFilm, setTimeSortedShowingsByFilm] = useState<Record<string, SortedShowingType>>({});
+  // Hidden films is not controlled by the user but contains films that have been incorrectly flagged as being in English
+  const hiddenFilms = JSON.parse(import.meta.env.VITE_HIDDEN_FILMS).map((filmTitle: string) => filmTitle.toLowerCase());
 
   const renderUserError = (message:string) => {
     return (
@@ -46,9 +48,9 @@ const FilmsContainer = ({ allFilmData, cinemas, displayBy, errors, selectedCinem
       varToUpdate[field1][field2][showingDate].push(start_time.time);
     }
 
-    showings.forEach(showing => {
+    showings.forEach(showing => {      
       // Ensure user only sees showings from towns they have selected
-      if (!selectedCinemas.includes(cinemas[showing.cinema].town)) return;
+      if (hiddenFilms.includes(showing.original_title.toLowerCase()) || !selectedCinemas.includes(cinemas[showing.cinema].town)) return;
 
       const { cinema, original_title } = showing;  
       getTimeSortedShowings(showing, showingTimesByFilm, original_title, cinema);
@@ -56,7 +58,7 @@ const FilmsContainer = ({ allFilmData, cinemas, displayBy, errors, selectedCinem
     });
     setTimeSortedShowingsByCinema(showingTimesByCinema);
     setTimeSortedShowingsByFilm(showingTimesByFilm);
-  }, [cinemas, selectedCinemas, showings]);
+  }, [cinemas, hiddenFilms, selectedCinemas, showings]);
   
   if (errors.cinemaSelection) {
     return renderUserError("At least one cinema must be selected!");

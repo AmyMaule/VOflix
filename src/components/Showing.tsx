@@ -22,8 +22,8 @@ type ShowingProps = {
 const Showing = ({ cinemas, cinemaId, displayBy, filmData, showing, filmTitle }: ShowingProps) => { 
   const showingRef = useRef<HTMLDivElement>(null);
   const releaseYear = filmData.release_date?.slice(0, 4) || "";
-  const trailerURL = `${filmTitle.split(" ").join("+")}+${releaseYear}+trailer`;
-  
+  const trailerURL = `${encodeURIComponent(filmTitle).split(" ").join("+")}+${releaseYear}+trailer`;
+
   useEffect(() => {
     const activeRef = showingRef.current;
     if (!activeRef) return;
