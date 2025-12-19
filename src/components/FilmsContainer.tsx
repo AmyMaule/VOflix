@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import ShowingsByCinema from "./ShowingsByCinema";
 import ShowingsByFilm from "./ShowingsByFilm";
@@ -24,7 +24,12 @@ const FilmsContainer = ({ allFilmData, cinemas, displayBy, errors, selectedCinem
   const [timeSortedShowingsByCinema, setTimeSortedShowingsByCinema] = useState<Record<string, SortedShowingType>>({});
   const [timeSortedShowingsByFilm, setTimeSortedShowingsByFilm] = useState<Record<string, SortedShowingType>>({});
   // Hidden films is not controlled by the user but contains films that have been incorrectly flagged as being in English
-  const hiddenFilms = JSON.parse(import.meta.env.VITE_HIDDEN_FILMS).map((filmTitle: string) => filmTitle.toLowerCase());
+  const hiddenFilms = useMemo(
+  () =>
+    JSON.parse(import.meta.env.VITE_HIDDEN_FILMS)
+      .map((filmTitle: string) => filmTitle.toLowerCase()),
+  []
+);
 
   const renderUserError = (message:string) => {
     return (

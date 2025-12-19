@@ -50,7 +50,6 @@ const Showing = ({ cinemas, cinemaId, displayBy, filmData, showing, filmTitle }:
   }, []);
 
   const renderShowDates = () => {
-    console.log(showing, "??")
     return displayBy === "cinema"
       ? renderShowtimes(showing[filmTitle], "")
       : <>
