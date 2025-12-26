@@ -21,12 +21,11 @@ const ShowingsByCinema = ({ allFilmData, cinemas, timeSortedShowingsByCinema }: 
 
         return (
           <div className="showings-by-cinema-container" key={cinema}>
-            <div>
+            <div className="showings-by-cinema-title-container">
               <h4 className="showings-by-cinema-title">{cinemaName}</h4>
               <h6 className="showings-by-cinema-subtitle">{cinemaTown}</h6>
             </div>
             {films.map(filmTitle => {
-              console.log(cinemas[cinema])
               const filmData = allFilmData[filmTitle];
               const showing = {
                 [filmTitle]: timeSortedShowingsByCinema[cinema][filmTitle]

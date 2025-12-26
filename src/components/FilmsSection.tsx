@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
-import { getCinemaTowns, renderError } from "../utilities";
+import { renderError } from "../utilities";
 import { 
   CinemaType,
   DisplayByType,
@@ -45,12 +45,6 @@ const FilmsSection = () => {
     setDisplayBy(selectedDisplayBy);
     localStorage.setItem("displayBy", selectedDisplayBy);
   }
-
-  useEffect(() => {
-    if (selectedCinemas.length) return;
-    const cinemaTowns = getCinemaTowns(cinemas);
-    setSelectedCinemas(cinemaTowns);
-  }, [cinemas, selectedCinemas]);
   
   useEffect(() => {
     const baseUrl = import.meta.env.VITE_BASEURL;

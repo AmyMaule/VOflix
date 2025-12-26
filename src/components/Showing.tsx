@@ -55,7 +55,6 @@ const Showing = ({ cinemas, cinemaId, displayBy, filmData, showing, filmTitle }:
       : <>
           {
             Object.keys(showing).map(cinema => {
-              // console.log(cinemas[cinema])
               const cinemaNameDisplay = cinema.split(",").map(word => word.trim()).join(", ");
               return (
                 <React.Fragment key={cinema}>

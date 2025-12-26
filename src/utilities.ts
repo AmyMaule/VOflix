@@ -11,7 +11,25 @@ export const renderError = (err: unknown) => {
   }
 }
 
-// Get unique cinema towns
+// Get unique cinema towns and their department number
 export const getCinemaTowns = (cinemas: Record<string, CinemaType>) => {
-  return [... new Set(Object.values(cinemas).map(cinema => cinema.town))];
+  const townsAlreadyAdded = new Set<string>();
+
+  return Object.values(cinemas)
+    .filter(cinema => {
+      if (townsAlreadyAdded.has(cinema.town)) {
+        return false;
+      }
+      townsAlreadyAdded.add(cinema.town);
+      return true;
+    })
+    .map(cinema => {
+      const postcodeMatches = cinema.address.match(/\b\d{5}\b/g);
+      const postcode = postcodeMatches?.[postcodeMatches.length - 1] ?? "00";
+      return {
+        town: cinema.town,
+        deptCode: postcode.slice(0, 2),
+        dept: cinema.department
+      };
+    });
 }
