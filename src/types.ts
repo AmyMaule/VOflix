@@ -6,7 +6,8 @@ export interface CinemaType {
   additional_info: null,
   address: string,
   cinema_id: string,
-  gps_coordinates: number[]
+  gps_coordinates: number[],
+  department: string
 }
 
 export interface FilmType {
@@ -42,3 +43,9 @@ export interface SortedShowingType {
 export type DatesType = {
   [date: string]: string[];
 }
+
+export type CinemaTownType = {
+  town: string;
+  dept: string;
+  deptCode: string;
+};

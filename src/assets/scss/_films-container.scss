@@ -1,8 +1,6 @@
 .films-section {
   position: relative;
-  width: 100%;
   padding: 4rem;
-  max-width: 80rem;
   min-height: 60rem;
   margin: 0 auto;
 
@@ -10,7 +8,6 @@
     position: absolute;
     content: "";
     background-image: url("/hexagon-bg.jpg");
-    background-size: cover;
     background-size: contain;
     background-repeat: repeat-y;
     width: 100%;
@@ -30,6 +27,9 @@
 .films-title {
   font-family: "BebasNeue", sans-serif;
   font-size: 4.5rem;
+  max-width: 120rem;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .films-display-by-container {

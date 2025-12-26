@@ -25,10 +25,6 @@
   }
 
   // films section
-  .films-title {
-    text-align: center;
-  }
-
   .showing-by-cinema-container {
     flex-wrap: wrap;
     gap: 0 2rem;
@@ -74,10 +70,6 @@
 @media screen and (max-width: 770px) {
   .films-section {
     padding: 1.5rem 1.5rem 4rem 1.5rem;
-  }
-
-  .films-title {
-    text-align: center;
   }
 
   .showing-by-cinema-poster-container {
