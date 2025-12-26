@@ -36,26 +36,19 @@ const CinemaSelector = ({ cinemas, selectedCinemas, setErrors, setSelectedCinema
   };
 
   const handleSearchCinemas = () => {
-    if (cinemaListRef.current) {
-      const cinemas = [...cinemaListRef.current.querySelectorAll<HTMLInputElement>(".cinema-selector-input")];
-      const currentlySelected = cinemas
-      .filter(cinema => cinema.checked)
-      .map(cinema => cinema.id);
-      
-      if (!currentlySelected.length) {
-        setErrors({
-          cinemaSelection: true
-        });
-        return;
-      }
-      // Add currentlySelected to local storage for retrieval on next visit
-      localStorage.setItem("selectedCinemas", JSON.stringify(currentlySelected));
-      setSelectedCinemas(currentlySelected);
-      setErrors({
-        cinemaSelection: false
-      });
+    if (selectedCinemas.length === 0) {
+      setErrors({ cinemaSelection: true });
+      return;
     }
-  }
+
+    // Add selectedCinemas to local storage for retrieval on next visit
+    localStorage.setItem(
+      "selectedCinemas",
+      JSON.stringify(selectedCinemas)
+    );
+
+    setErrors({ cinemaSelection: false });
+  };
 
   const groupByDept = (cinemaTowns: CinemaTownType[]) => {
     const townsGroupedByDept: Record<string, string[]> = {};
