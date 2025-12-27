@@ -123,8 +123,7 @@
   }
 
   .showing-by-cinema-poster-container {
-    width: 15rem;
-    max-width: 15rem;
+    width: max(100%, 14rem);
   }
 
   .showing-by-cinema-text-container {
