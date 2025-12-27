@@ -105,7 +105,10 @@ const Showing = ({ cinemas, cinemaId, displayBy, filmData, showing, filmTitle }:
           <i className="fa-regular fa-circle-play showing-by-cinema-trailer-play-btn" />
           <div className="showing-by-cinema-trailer-link">Watch trailer</div>
         </div>
-        <img src={filmData.poster_hi_res} className="showing-by-cinema-poster" />
+        {filmData.poster_hi_res
+          ? <img src={filmData.poster_hi_res} className="showing-by-cinema-poster" />
+          : <p className="showing-by-cinema-poster-empty">No poster available</p>
+        }
       </a>
       <div className="showing-by-cinema-text-container-mobile">
         <div className="showing-by-cinema-details-container">

@@ -97,6 +97,7 @@
   max-width: 12rem;
   min-width: 12rem;
   height: fit-content;
+  text-decoration: none;
   z-index: 15;
   overflow: hidden;
   margin-top: 0.25rem;
@@ -150,6 +151,17 @@
   width: 100%;
   min-height: 10rem;
   object-fit: contain;
+}
+
+.showing-by-cinema-poster-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-tertiary;
+  width: 100%;
+  height: max(100%, 15rem);
+  aspect-ratio: 2/3;
+  background-color: $color-grey-4;
 }
 
 .showing-by-cinema-trailer-play-btn {
