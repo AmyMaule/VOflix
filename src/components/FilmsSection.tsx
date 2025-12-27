@@ -21,6 +21,7 @@ const FilmsSection = () => {
   const [displayBy, setDisplayBy] = useState<DisplayByType>(storedDisplayBy || "cinema");
   const storedSelectedCinemas = localStorage.getItem("selectedCinemas");
   const [selectedCinemas, setSelectedCinemas]  = useState<string[]>(storedSelectedCinemas ? JSON.parse(storedSelectedCinemas) : []);
+  const [searchSelectedCinemas, setSearchSelectedCinemas] = useState<string[]>(storedSelectedCinemas ? JSON.parse(storedSelectedCinemas) : []);
 
   const getData = useCallback(<T,>(
     url: string, 
@@ -82,6 +83,7 @@ const FilmsSection = () => {
             setErrors={setErrors}
             selectedCinemas={selectedCinemas}
             setSelectedCinemas={setSelectedCinemas}
+            setSearchSelectedCinemas={setSearchSelectedCinemas}
           />
         </div>
         <FilmsContainer
@@ -90,7 +92,7 @@ const FilmsSection = () => {
           displayBy={displayBy} 
           errors={errors}
           showings={showings}
-          selectedCinemas={selectedCinemas}
+          searchSelectedCinemas={searchSelectedCinemas}
         />
       </div>
     </div>
