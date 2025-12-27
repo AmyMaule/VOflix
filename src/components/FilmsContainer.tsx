@@ -16,11 +16,11 @@ type FilmsContainerProps = {
   cinemas: Record<string, CinemaType>
   displayBy: DisplayByType
   errors: Record<string, boolean>
-  selectedCinemas: string[]
+  searchSelectedCinemas: string[]
   showings: RawShowingType[]
 }
 
-const FilmsContainer = ({ allFilmData, cinemas, displayBy, errors, selectedCinemas, showings }: FilmsContainerProps) => {
+const FilmsContainer = ({ allFilmData, cinemas, displayBy, errors, searchSelectedCinemas, showings }: FilmsContainerProps) => {
   const [timeSortedShowingsByCinema, setTimeSortedShowingsByCinema] = useState<Record<string, SortedShowingType>>({});
   const [timeSortedShowingsByFilm, setTimeSortedShowingsByFilm] = useState<Record<string, SortedShowingType>>({});
   // Hidden films is not controlled by the user but contains films that have been incorrectly flagged as being in English
@@ -55,7 +55,7 @@ const FilmsContainer = ({ allFilmData, cinemas, displayBy, errors, selectedCinem
 
     showings.forEach(showing => {      
       // Ensure user only sees showings from towns they have selected
-      if (hiddenFilms.includes(showing.original_title.toLowerCase()) || !selectedCinemas.includes(cinemas[showing.cinema].town)) return;
+      if (hiddenFilms.includes(showing.original_title.toLowerCase()) || !searchSelectedCinemas.includes(cinemas[showing.cinema].town)) return;
 
       const { cinema, original_title } = showing;  
       getTimeSortedShowings(showing, showingTimesByFilm, original_title, cinema);
@@ -63,13 +63,13 @@ const FilmsContainer = ({ allFilmData, cinemas, displayBy, errors, selectedCinem
     });
     setTimeSortedShowingsByCinema(showingTimesByCinema);
     setTimeSortedShowingsByFilm(showingTimesByFilm);
-  }, [cinemas, hiddenFilms, selectedCinemas, showings]);
+  }, [cinemas, hiddenFilms, searchSelectedCinemas, showings]);
   
   if (errors.cinemaSelection) {
     return renderUserError("At least one cinema must be selected!");
   }
 
-  if (!Object.keys(timeSortedShowingsByFilm).length || !selectedCinemas.length) {
+  if (!Object.keys(timeSortedShowingsByFilm).length || !searchSelectedCinemas.length) {
     return renderUserError("No showings match your search criteria.\nTry searching a broader range of cinemas.");
   }
 

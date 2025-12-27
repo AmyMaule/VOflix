@@ -118,9 +118,18 @@
 .department-selector-bubble {
   font-family: "Kanit", sans-serif;
   border-color: $color-secondary;
+  outline: none;
 
   &:hover {
     border-color: $color-tertiary;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-tertiary;
   }
 }
 

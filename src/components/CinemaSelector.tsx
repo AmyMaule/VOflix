@@ -9,21 +9,40 @@ type CinemaSelectorProps = {
   cinemas: Record<string, CinemaType>,
   selectedCinemas: string[],
   setErrors: React.Dispatch<React.SetStateAction<Record<string, boolean>>>,
-  setSelectedCinemas: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedCinemas: React.Dispatch<React.SetStateAction<string[]>>,
+  setSearchSelectedCinemas: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const CinemaSelector = ({ cinemas, selectedCinemas, setErrors, setSelectedCinemas }: CinemaSelectorProps) => {
-  const [showCinemas, setShowCinemas]  = useState(true);
-  const [activeDepts, setActiveDepts] = useState<string[]>([]);
+const CinemaSelector = ({ cinemas, selectedCinemas, setErrors, setSelectedCinemas, setSearchSelectedCinemas }: CinemaSelectorProps) => {
+  const storedSelectedCinemas = localStorage.getItem("selectedCinemas");
+  // If a user has previously selected cinemas, hide the cinema selector
+  const [showCinemas, setShowCinemas]  = useState<boolean>(!storedSelectedCinemas);
   const cinemaListRef = useRef<HTMLDivElement>(null);
   const cinemaTowns = useMemo(() => getCinemaTowns(cinemas), [cinemas]);
 
-  // Select or de-select all visible cinemas (those whose depts are active)
-  const handleSelectDeselectVisible = () => {
-    const visibleTowns = Object.entries(cinemaTownsGroupedByDept)
+  const getInitialActiveDepts = useMemo(() => {
+    if (!storedSelectedCinemas) return [];
+    return Array.from(
+      new Set(
+        cinemaTowns
+          .filter(({ town }) => JSON.parse(storedSelectedCinemas).includes(town))
+          .map(({ dept }) => dept)
+      )
+    );
+  }, [storedSelectedCinemas, cinemaTowns]);
+  
+  const [activeDepts, setActiveDepts] = useState<string[]>(getInitialActiveDepts);
+
+  const getVisibleTowns = () => {
+    return Object.entries(cinemaTownsGroupedByDept)
       .filter(([dept]) => activeDepts.includes(dept))
       .flatMap(([, towns]) => towns);
-      const allSelected = visibleTowns.every(town => selectedCinemas.includes(town));
+  }
+
+  // Select or de-select all visible cinemas (those whose depts are active)
+  const handleSelectDeselectVisible = () => {
+    const visibleTowns = getVisibleTowns();
+    const allSelected = visibleTowns.every(town => selectedCinemas.includes(town));
     
     // If all visible are selected, deselect them, else select them
     setSelectedCinemas(prev =>
@@ -36,6 +55,9 @@ const CinemaSelector = ({ cinemas, selectedCinemas, setErrors, setSelectedCinema
   };
 
   const handleSearchCinemas = () => {
+    // Set the search to whichever cinemas are currently selected
+    setSearchSelectedCinemas(selectedCinemas);
+
     if (selectedCinemas.length === 0) {
       setErrors({ cinemaSelection: true });
       return;
@@ -46,7 +68,6 @@ const CinemaSelector = ({ cinemas, selectedCinemas, setErrors, setSelectedCinema
       "selectedCinemas",
       JSON.stringify(selectedCinemas)
     );
-
     setErrors({ cinemaSelection: false });
   };
 
