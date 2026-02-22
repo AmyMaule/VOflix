@@ -5,14 +5,16 @@ import {
   CinemaType
 } from "../types";
 
-export const fetchFilms = (): Promise<Record<string, FilmType>> => {
-  return getData<Record<string, FilmType>>("/search/movies");
-};
+export const filmsApi = {
+  getFilms: (): Promise<Record<string, FilmType>> => {
+    return getData<Record<string, FilmType>>("/search/movies");
+  },
 
-export const fetchShowings = (): Promise<RawShowingType[]> => {
-  return getData<RawShowingType[]>("/search/showings");
-};
+  getShowings: (): Promise<RawShowingType[]> => {
+    return getData<RawShowingType[]>("/search/showings");
+  },
 
-export const fetchCinemas = (): Promise<Record<string, CinemaType>> => {
-  return getData<Record<string, CinemaType>>("/cinemas");
-};
+  getCinemas: (): Promise<Record<string, CinemaType>> => {
+    return getData<Record<string, CinemaType>>("/cinemas");
+  },
+}

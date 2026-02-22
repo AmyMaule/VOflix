@@ -49,3 +49,9 @@ export type CinemaTownType = {
   dept: string;
   deptCode: string;
 };
+
+export type ContactFormDataType = {
+  name: string;
+  email?: string;
+  message: string;
+};

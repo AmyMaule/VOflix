@@ -1,6 +1,7 @@
 // <div>Contact us: contact.voflix@gmail.com</div>
 import { useRef } from "react";
-import axios, { AxiosResponse } from "axios";
+import { contactApi } from "../api/contactApi";
+import { ContactFormDataType } from "../types";
 
 const Contact = () => {
   const contactErrorRef = useRef<HTMLParagraphElement>(null);
@@ -10,43 +11,32 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    const data = Object.fromEntries(formData.entries());
+    const data = Object.fromEntries(formData.entries()) as ContactFormDataType;
 
-    axios.post(`https://formspree.io/f/${import.meta.env.VITE_FORMSPREE_ID}`, {
-      "form-name": "contact",
-      ...data
-    })
-    .then((res: AxiosResponse) => {
-      if (res.status === 200) {
-        if (contactFormRef.current) {
-          contactSuccessRef.current!.classList.remove("hide");
-          contactFormRef.current.classList.add("fade-out");
-          // Reset error state in case error was previously triggered
-          contactErrorRef.current!.classList.add("hide");
-    
-          setTimeout(() => {
-            const formChildren = Array.from(contactFormRef.current!.children);
-            formChildren.forEach(formChild => {
-              if (formChild instanceof HTMLElement) {
-                formChild.classList.add("hide");
-              }
-            }) 
-          }, 500);
+    contactApi.submitContactForm(data)
+      .then(() => {
+        if (!contactFormRef.current || !contactSuccessRef.current) return;
+
+        contactSuccessRef.current.classList.remove("hide");
+        contactFormRef.current.classList.add("fade-out");
+        // Reset error state in case error was previously triggered
+        contactErrorRef.current!.classList.add("hide");
+
+        setTimeout(() => {
+          const formChildren = Array.from(contactFormRef.current!.children);
+          formChildren.forEach(formChild => {
+            if (formChild instanceof HTMLElement) {
+              formChild.classList.add("hide");
+            }
+          }) 
+        }, 500);
+      })
+      .catch(err => {
+        if (contactErrorRef.current) {
+          contactErrorRef.current.classList.remove("hide");
         }
-      } else {
-        throw Error(`Error submitting form, status ${res.status}`);
-      }
-    })
-    .catch((err: unknown) => {
-      if (contactErrorRef.current) {
-        contactErrorRef.current.classList.remove("hide");
-      }
-      if (err instanceof Error) {
-        console.error(err.message);
-      } else {
-        console.error(err);
-      }
-    });
+        console.error(err instanceof Error ? err.message : err);
+      });
   }
 
   return (
