@@ -25,7 +25,7 @@
 }
 
 .films-title {
-  font-family: "BebasNeue", sans-serif;
+  font-family: $font-heading;
   font-size: 4.5rem;
   max-width: 120rem;
   text-align: center;
@@ -33,19 +33,19 @@
 }
 
 .films-display-by-container {
-  font-family: "BebasNeue", sans-serif;
-  font-size: 2rem;
+  font-family: $font-heading;
+  font-size: $font-size-2xl;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: $spacing-lg;
   color: $color-text-secondary;
   margin: 3rem auto 0 auto;
 }
 
 .btn-films-display-by-container {
   display: flex;
-  gap: 2rem;
+  gap: $spacing-xxl;
 }
 
 .no-showings-found {
@@ -53,12 +53,12 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: $font-size-lg;
   white-space: pre-wrap;
   margin: 9rem 0 3rem 0;
 }
 
 .tmdb-logo {
   width: 3.75rem;
-  margin-left: 1rem;
+  margin-left: $spacing-lg;
 }

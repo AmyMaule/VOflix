@@ -10,21 +10,22 @@
 }
 
 .contact-title {
-  font-family: "BebasNeue", sans-serif;
-  font-size: 2.5rem;
+  font-family: $font-heading;
+  font-size: $font-size-3xl;
   text-align: center;
+  color: $color-secondary;
 }
 
 .contact-subtitle {
-  font-size: 1.1rem;
-  color: $color-text-secondary;
+  font-size: $font-size-md;
+  color: $color-text;
   text-align: center;
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: $spacing-xxl;
   max-width: 56rem;
   min-height: 20rem;
   width: 100%;
@@ -32,18 +33,17 @@
 
   &.fade-out {
     animation: fade-out 0.5s forwards;
-    -webkit-animation: fade-out 0.5s forwards;
   }
 }
 
 .contact-inputs-container {
   display: flex;
-  gap: 2rem;
+  gap: $spacing-xxl;
 }
 
 .contact-input {
-  font-family: "Kanit", sans-serif;
-  font-size: 1.1rem;
+  font-family: $font-body;
+  font-size: $font-size-sm;
   color: $color-text;
   background-color: transparent;
   width: 100%;
@@ -53,8 +53,7 @@
   outline: none;
   padding: 0.3rem;
   cursor: pointer;
-  transition: 350ms ease all;
-  -webkit-transition: 350ms ease all;
+  transition: $transition-slower;
 
   &::placeholder {
     opacity: 0.7;
@@ -62,27 +61,25 @@
 
   &:hover {
     border-color: $color-tertiary;
-    transition: 350ms ease all;
-    -webkit-transition: 350ms ease all;
+    transition: $transition-slower;
   }
 
   &:focus {
     border-color: $color-primary;
-    transition: 350ms ease all;
-    -webkit-transition: 350ms ease all;
+    transition: $transition-slower;
   }
 }
 
 .contact-textarea {
-  font-weight: 300;
+  font-weight: $light;
   min-height: 9rem;
   resize: vertical;
 }
 
 .contact-success {
   position: absolute;
-  font-weight: 300;
-  font-size: 1.2rem;
+  font-weight: $light;
+  font-size: $font-size-md;
   color: $color-text;
   text-align: center;
   white-space: pre-wrap;
@@ -90,12 +87,11 @@
   left: 50%;
   transform: translateX(-50%);
   animation: contact-slide-up 0.5s 0.5s forwards;
-  -webkit-animation: contact-slide-up 0.5s 0.5s forwards;
 }
 
 .contact-error {
-  font-size: 1.1rem;
+  font-size: $font-size-sm;
   color: $color-primary;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: $spacing-lg;
 }

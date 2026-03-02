@@ -5,14 +5,14 @@
 }
 
 *, *::before, *::after {
-  font-weight: 400;
+  font-weight: $regular;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: "Kanit", sans-serif;
+  font-family: $font-body;
   color: $color-text;
 }
 

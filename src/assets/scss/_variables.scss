@@ -6,14 +6,27 @@
   src: url("../fonts/BebasNeue-Regular.otf") format("opentype");
 }
 
+// Fonts
+$font-heading: "BebasNeue", sans-serif;
+$font-body: "Kanit", sans-serif;
+$font-sans: "Open Sans", sans-serif;
+
+
+// Font sizes
+$font-size-xxs: 0.8rem;
+$font-size-xs: 0.9rem;
+$font-size-sm: 1rem;
+$font-size-md: 1.2rem;
+$font-size-lg: 1.5rem;
+$font-size-xl: 1.75rem;
+$font-size-2xl: 2rem;
+$font-size-3xl: 2.5rem;
+
+
+// Colors
 $color-primary: #ff5569;
-$color-primary-highlight: #dd0808;
-
 $color-secondary: #b493f6;
-// $color-secondary-highlight: #8c4ade;
-
 $color-tertiary: #67dcfc;
-// $color-tertiary: #e2be2f;
 
 $color-text: #e9e6e6;
 $color-text-secondary: #c2e1ee;
@@ -22,3 +35,36 @@ $color-grey-1: #262629;
 $color-grey-2: #191514;
 $color-grey-3: #252525;
 $color-grey-4: #505050;
+
+
+// Transitions
+$transition-fast: 150ms all ease;
+$transition-default: 200ms all ease;
+$transition-med: 250ms all ease;
+$transition-slow: 300ms all ease;
+$transition-slower: 350ms all ease;
+
+
+// Gaps
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 0.6rem;
+$spacing-lg: 1rem;
+$spacing-xl: 1.5rem;
+$spacing-xxl: 2rem;
+
+
+// Border radius
+$radius-sm: 0.5rem;
+$radius-md: 0.6rem;
+$radius-lg: 1rem;
+$radius-pill: 100vmax;
+$radius-round: 50%;
+
+
+// Font weight
+$light: 300;
+$regular: 400;
+$medium: 500;
+$semibold: 600;
+$icon: 900;

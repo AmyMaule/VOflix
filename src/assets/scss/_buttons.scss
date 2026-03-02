@@ -1,28 +1,24 @@
 
 .btn {
-  font-family: "BebasNeue", sans-serif;
+  font-family: $font-heading;
   color: $color-text;
   background-color: $color-grey-1;
-  border-radius: 0.5rem;
-  -webkit-transition: 300ms all ease;
-          transition: 300ms all ease;
-  padding: 0.25rem 1.5rem;
+  border-radius: $radius-sm;
+  transition: $transition-slow;
+  padding: $spacing-xs $spacing-xl;
   cursor: pointer;
 
   &:hover {
     background-color: $color-grey-2;
     border-color: $color-primary;
-    -webkit-transition: 300ms all ease;
-            transition: 300ms all ease;
+    transition: $transition-slow;
   }
 }
 
 .btn-select-cinemas {
-  font-size: 1.25rem;
-  background-color: $color-grey-1;
+  font-size: $font-size-md;
   border: 1px solid $color-grey-4;
   letter-spacing: 1px;
-  border-radius: 0.5rem;
 
   &:hover {
     border-color: $color-tertiary;
@@ -30,41 +26,28 @@
 }
 
 .btn-search {
-  font-size: 1.75rem;
+  font-size: $font-size-xl;
   border: 2px solid $color-secondary;
-  padding: 0.5rem 3rem;
+  padding: $spacing-sm 3rem;
 }
 
 .btn-contact-submit {
-  font-size: 2rem;
+  font-size: $font-size-2xl;
   border: 2px solid $color-grey-4;
   width: fit-content;
-  padding: 0.5rem 2rem;
+  padding: $spacing-sm $spacing-xxl;
   margin: 0 auto;
 }
 
 
 .btn-films-display-by {
-  font-family: "BebasNeue", sans-serif;
-  font-size: 1.75rem;
-  background-color: $color-grey-1;
-  color: $color-text;
+  font-size: $font-size-xl;
   border-color: $color-secondary;
   width: 8rem;
   border: 3px solid $color-secondary;
-  border-radius: 100vmax;
+  border-radius: $radius-pill;
   text-align: center;
-  padding: 0.25rem 1rem;
-  cursor: pointer;
-  transition: 300ms all linear;
-  -webkit-transition: 300ms all linear;
-
-  &:hover {
-    background-color: $color-grey-2;
-    border-color: $color-primary;
-    transition: 300ms all linear;
-    -webkit-transition: 300ms all linear;
-  }
+  padding: $spacing-xs $spacing-lg;
 
   span {
     position: relative;
@@ -73,19 +56,16 @@
 }
 
 .btn-films-display-by-current {
-  font-size: 1.8rem;
+  font-size: $font-size-xl;
   background-color: $color-primary;
   color: $color-grey-1;
   border-color: $color-primary;
   cursor: default;
   transform: scale(1.15);
-  -webkit-transform: scale(1.15);
   transition: 300ms transform linear;
-  -webkit-transition: 300ms transform linear;
 
   &:hover {
     background-color: $color-primary;
     transition: 300ms transform linear;
-    -webkit-transition: 300ms transform linear;
   }
 }
