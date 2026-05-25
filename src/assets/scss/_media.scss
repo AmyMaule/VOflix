@@ -37,7 +37,7 @@
   }
 
   .showing-by-cinema-poster-container {
-    width: 30%;
+    width: 35%;
   }
 
   .showing-by-cinema-text-container {
@@ -112,8 +112,8 @@
   }
 
   .showing-by-cinema-container {
-    gap: 0 $spacing-lg;
-    justify-content: space-evenly;
+    gap: 0 $spacing-xxl;
+    justify-content: center;
     padding: 0.7rem;
   }
 
@@ -122,7 +122,8 @@
   }
 
   .showing-by-cinema-poster-container {
-    width: max(100%, 14rem);
+    width: 100%;
+    margin-bottom: $spacing-lg;
   }
 
   .showing-by-cinema-text-container {
@@ -231,8 +232,13 @@
     font-size: 1.6rem;
   }
 
+  .showing-by-cinema-container {
+    gap: 0 $spacing-xl;
+  }
+
   .showing-by-cinema-poster-container {
-    width: 60%;
+    width: 75%;
+    max-width: 12rem;
   }
 
   .showing-by-cinema-details-container {
@@ -241,5 +247,11 @@
 
   .cinema-selector-error-container {
     max-width: 21rem;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .showing-by-cinema-details-container {
+    flex-direction: row;
   }
 }
