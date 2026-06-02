@@ -18,18 +18,31 @@ export const useFilmsData = () => {
   const [showings, setShowings] = useState<RawShowingType[]>([]);
   const [cinemas, setCinemas] = useState<Record<string, CinemaType>>({});
 
-  const loadData = useCallback(async () => {
+const loadData = useCallback(async () => {
+  try {
     const [filmsResult, showingsResult, cinemasResult] = await Promise.all([
       filmsApi.getFilms(),
       filmsApi.getShowings(),
       filmsApi.getCinemas(),
     ]);
 
+    console.log("Fetching new data for Lavelanet, Foix and Perpignan...")
     setAllFilmData(filmsResult);
     setShowings(showingsResult);
     setCinemas(cinemasResult);
     setLastFetchedTime(Date.now());
-  }, []);
+    const testShowings: RawShowingType[] = [];
+    const testCinemas = ["Méga Castillet,Perpignan", "Le Casino,Lavelanet", "L'Estive,Foix", "Castillet,Perpignan"]
+    showingsResult.forEach(showing => {
+      if (testCinemas.includes(showing.cinema)) {
+        testShowings.push(showing);
+      }
+    })
+    console.log(testShowings)
+  } catch (err) {
+    console.error("Failed to load data", err);
+  }
+}, []);
 
   // Initial load
   useEffect(() => {
@@ -43,8 +56,9 @@ export const useFilmsData = () => {
       if (document.visibilityState !== "visible") return;
       const lastFetchedTime = getLastFetchedTime();
       const now = Date.now();
-      const sixHours = 6 * 60 * 60 * 1000;
-      if (!lastFetchedTime || now - lastFetchedTime > sixHours) {
+      const threeHours = 3 * 60 * 60 * 1000;
+      console.log("Checking for refetch", now - lastFetchedTime)
+      if (!lastFetchedTime || now - lastFetchedTime > threeHours) {
         loadData();
       }
     };
