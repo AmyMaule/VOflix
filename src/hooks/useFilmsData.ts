@@ -26,7 +26,6 @@ export const useFilmsData = () => {
         filmsApi.getCinemas(),
       ]);
 
-      console.log("Fetching films...")
       setAllFilmData(filmsResult);
       setShowings(showingsResult);
       setCinemas(cinemasResult);
@@ -48,7 +47,6 @@ export const useFilmsData = () => {
       const lastFetchedTime = getLastFetchedTime();
       const now = Date.now();
       const threeHours = 3 * 60 * 60 * 1000;
-      console.log("Checking for refetch", !lastFetchedTime, now - lastFetchedTime > threeHours)
       if (!lastFetchedTime || now - lastFetchedTime > threeHours) {
         loadData();
       }
